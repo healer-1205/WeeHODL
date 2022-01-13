@@ -32,6 +32,7 @@
 
 .ease-of-use {
   color: #fff;
+  font-size: 18px;
 }
 
 .about-title {
@@ -75,6 +76,47 @@
 
 // end client part
 
+// start security part
+
+.security-content{
+  margin-top: 10% !important;
+}
+
+.security-title {
+  font-size: 40px;
+}
+
+.icon-description {
+  color: #fff;
+  padding-left: 20px;
+  font-weight: 100;
+}
+
+// end security part
+
+// start managing deals part
+
+.managing {
+  margin-top: 15% !important;
+}
+
+.managing-title-content {
+  padding-top: 5%;
+}
+
+.managing-text {
+  color: rgba(41,169,235,1);
+  font-size: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+// end managing deals part
+
+// start icons style
+.icons-style {
+  color: rgba(41, 169, 235, 1);
+}
+// end icons style
 @media screen and (max-width: 1025px) {
   .how-pros-text {
     font-size: 30px;
@@ -117,5 +159,14 @@
   .client-image {
     width: 30px;
     margin: 10px;
+  }
+  .security-title {
+    font-size: 30px;
+  }
+  .clients-text {
+    font-size: 15px;
+  }
+  .managing-text {
+    font-size: 15px;
   }
 }
