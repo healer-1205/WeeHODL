@@ -112,6 +112,14 @@
 
 // end managing deals part
 
+// start developer part
+
+.developer-card {
+  margin-bottom: 20px;
+}
+
+// end developer part
+
 // start icons style
 .icons-style {
   color: rgba(41, 169, 235, 1);
@@ -168,5 +176,13 @@
   }
   .managing-text {
     font-size: 15px;
+  }
+  .security-content {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+  .about-container {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
   }
 }
