@@ -45,7 +45,7 @@ export default function Header() {
             <span className="link-text">Telegram</span>
             <span className="link-text-mobile">Log In</span>
           </CustomLink>
-          <CustomLink href="/metamask">
+          <CustomLink href="/users/signup">
             <img src={MetamaskImg} alt="metamask" width="20" />
             <span className="link-text">Log into Investor Portal</span>
             <span className="link-text-mobile">Log In</span>
