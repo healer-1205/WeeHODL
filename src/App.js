@@ -14,8 +14,8 @@ function App() {
         {/* <Header /> */}
         <div>
           <Routes>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/users/signup" component={Login} />
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="users/signup" element={<Login />} />
           </Routes>
         </div>
       </Router>

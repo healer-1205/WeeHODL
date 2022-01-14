@@ -28,6 +28,24 @@
   font-size: 2rem;
 }
 
+.login-link {
+  display: flex;
+  text-decoration: none;
+  background-color: rgba(5,11,33,1);
+  color: white;
+  font-size: 14px;
+  border-radius: 40px;
+  padding: 10px;
+  border-color: rgba(41,169,235,1);
+  border-width: 2px;
+  border-style: solid;
+  margin-left: 20px;
+}
+
+.login-link:hover {
+  color: white;
+}
+
 span {
   margin-left: 8px;
 }
@@ -38,6 +56,9 @@ span {
   }
   .nav_logo {
     font-size: 1.5rem;
+  }
+  .login-link {
+    border-radius: 15px;
   }
 }
 
