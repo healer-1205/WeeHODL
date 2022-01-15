@@ -17,7 +17,7 @@ export default function Header() {
   return (
     <nav className="nav_bar">
       <div className="nav_container">
-        <NavLink exact to="/" className="nav_logo">
+        <NavLink to="/" className="nav_logo">
           <img src={Logo} alt="Logo" width="60" />
         </NavLink>
         <ButtonWrapper>

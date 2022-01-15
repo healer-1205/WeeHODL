@@ -3,10 +3,10 @@
   margin-top: 20px;
 }
 
-.logout {
+.telegram {
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  margin-right: 10px;
+  cursor: pointer;
 }
