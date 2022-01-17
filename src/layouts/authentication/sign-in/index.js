@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // @mui material components
@@ -18,7 +18,7 @@ import Metamask from "assets/images/metamask.svg";
 import WalletConnect from "assets/images/wallet_connect.svg";
 
 // import context
-import { useMaterialUIController, setAuthenticated, setAccount } from "context"; 
+import { useMaterialUIController, setAuthenticated, setAccount } from "context";
 
 // css
 import "./index.css";
@@ -26,19 +26,27 @@ import "./index.css";
 function Basic() {
   const [controller, dispatch] = useMaterialUIController();
   const navigate = useNavigate();
+  const [metamaskTitle, setMetamaskTitle] = useState("Metamask")
 
   const getAccount = async () => {
-    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-    const account = accounts[0];
-    return account;
+    if (window.ethereum) {
+      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const account = accounts[0];
+      return account;
+    }
+    setMetamaskTitle("Opening Metamask...");
+    window.location.href = "https://metamask.io/download";
+    return false;
   };
 
   const clickConnectWallet = () => {
     getAccount()
       .then((res) => {
-        setAccount(dispatch, String(res));
-        setAuthenticated(dispatch, true);
-        navigate("/dashboard");
+        if (res !== false) {
+          setAccount(dispatch, String(res));
+          setAuthenticated(dispatch, true);
+          navigate("/dashboard");
+        }
       })
   };
   return (
@@ -64,7 +72,7 @@ function Basic() {
             <MDBox mt={2} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth onClick={clickConnectWallet}>
                 <img alt="metamask" src={Metamask} width="30" />
-                Metamask
+                {metamaskTitle}
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
