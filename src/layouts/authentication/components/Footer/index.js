@@ -1,14 +1,8 @@
-/**
-
-*/
-
-// prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
 // @mui material components
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
-import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -18,8 +12,6 @@ import MDTypography from "components/MDTypography";
 import typography from "assets/theme/base/typography";
 
 function Footer({ light }) {
-  const { size } = typography;
-
   return (
     <MDBox position="absolute" width="100%" bottom={0} py={4}>
       <Container>
@@ -49,7 +41,7 @@ function Footer({ light }) {
             })}
           >
             <MDBox component="li" px={2} lineHeight={1}>
-              <Link href="https://www.creative-tim.com/presentation" target="_blank">
+              <Link href=":;javascript" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"
@@ -60,7 +52,7 @@ function Footer({ light }) {
               </Link>
             </MDBox>
             <MDBox component="li" px={2} lineHeight={1}>
-              <Link href="https://www.creative-tim.com/blog" target="_blank">
+              <Link href=":;javascript" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"
@@ -71,7 +63,7 @@ function Footer({ light }) {
               </Link>
             </MDBox>
             <MDBox component="li" pl={2} lineHeight={1}>
-              <Link href="https://www.creative-tim.com/license" target="_blank">
+              <Link href=":;javascript" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"

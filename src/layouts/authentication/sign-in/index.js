@@ -13,6 +13,8 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import Metamask from "assets/images/metamask.svg"
+import WalletConnect from "assets/images/wallet_connect.svg"
 
 // css
 import "./index.css";
@@ -40,12 +42,14 @@ function Basic() {
           <MDBox component="form" role="form">
             <MDBox mt={2} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth>
+                <img alt="metamask" src={Metamask} width="30" />
                 Metamask
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth>
-                Connect Wallet
+                <img alt="wallet_connect" src={WalletConnect} width="30" />
+                Wallet Connect
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1} className="telegram_container">
