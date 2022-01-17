@@ -1,23 +1,11 @@
-import { useState } from "react";
-
-// react-router-dom components
-import { Link } from "react-router-dom";
+import React from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
-import Switch from "@mui/material/Switch";
-import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
-
-// @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 
 // Authentication layout components
@@ -26,11 +14,10 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
+// css
+import "./index.css";
+
 function Basic() {
-  const [rememberMe, setRememberMe] = useState(false);
-
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -61,10 +48,10 @@ function Basic() {
                 Connect Wallet
               </MDButton>
             </MDBox>
-            <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
-                Telegram
-              </MDButton>
+            <MDBox mt={2} mb={1} className="telegram_container">
+              <a href="https://t.me/+q7gyM9U0OXo4M2Q0" className="telegram">
+                TELEGRAM
+              </a>
             </MDBox>
           </MDBox>
         </MDBox>
