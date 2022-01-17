@@ -44,6 +44,9 @@ function reducer(state, action) {
     case "AUTHENTICATED": {
       return { ...state, isAuthenticated: action.value };
     }
+    case "ACCOUNT": {
+      return { ...state, account: action.value }
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -63,6 +66,7 @@ function MaterialUIControllerProvider({ children }) {
     layout: "dashboard",
     darkMode: false,
     isAuthenticated: false,
+    account: "",
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -99,6 +103,7 @@ const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value })
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setAuthenticated = (dispatch, value) => dispatch({ type: "AUTHENTICATED", value });
+const setAccount = (dispatch, value) => dispatch({ type: "ACCOUNT", value });
 
 export {
   MaterialUIControllerProvider,
@@ -114,4 +119,5 @@ export {
   setLayout,
   setDarkMode,
   setAuthenticated,
+  setAccount,
 };

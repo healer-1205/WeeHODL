@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -13,13 +14,33 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import Metamask from "assets/images/metamask.svg"
-import WalletConnect from "assets/images/wallet_connect.svg"
+import Metamask from "assets/images/metamask.svg";
+import WalletConnect from "assets/images/wallet_connect.svg";
+
+// import context
+import { useMaterialUIController, setAuthenticated, setAccount } from "context"; 
 
 // css
 import "./index.css";
 
 function Basic() {
+  const [controller, dispatch] = useMaterialUIController();
+  const navigate = useNavigate();
+
+  const getAccount = async () => {
+    const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+    const account = accounts[0];
+    return account;
+  };
+
+  const clickConnectWallet = () => {
+    getAccount()
+      .then((res) => {
+        setAccount(dispatch, String(res));
+        setAuthenticated(dispatch, true);
+        navigate("/dashboard");
+      })
+  };
   return (
     <BasicLayout image={bgImage}>
       <Card>
@@ -41,7 +62,7 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={clickConnectWallet}>
                 <img alt="metamask" src={Metamask} width="30" />
                 Metamask
               </MDButton>
