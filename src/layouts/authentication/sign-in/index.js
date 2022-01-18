@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // @mui material components
 import Card from "@mui/material/Card";
 
-// Material Dashboard 2 React components
+// Material components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
@@ -15,10 +15,13 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 import Metamask from "assets/images/metamask.svg";
-import WalletConnect from "assets/images/wallet_connect.svg";
+import WalletConnectImg from "assets/images/wallet_connect.svg";
+import Telegram from "assets/images/telegram.png";
 
 // import context
 import { useMaterialUIController, setAuthenticated, setAccount } from "context";
+
+// wallet connect
 
 // css
 import "./index.css";
@@ -39,7 +42,7 @@ function Basic() {
     return false;
   };
 
-  const clickConnectWallet = () => {
+  const clickMetamask = () => {
     getAccount()
       .then((res) => {
         if (res !== false) {
@@ -70,19 +73,20 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={clickConnectWallet}>
+              <MDButton variant="gradient" color="info" fullWidth onClick={clickMetamask}>
                 <img alt="metamask" src={Metamask} width="30" />
                 {metamaskTitle}
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
               <MDButton variant="gradient" color="info" fullWidth>
-                <img alt="wallet_connect" src={WalletConnect} width="30" />
+                <img alt="wallet_connect" src={WalletConnectImg} width="30" />
                 Wallet Connect
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1} className="telegram_container">
               <a href="https://t.me/+q7gyM9U0OXo4M2Q0" className="telegram">
+                <img alt="telegram" src={Telegram} width="30" />
                 TELEGRAM
               </a>
             </MDBox>
