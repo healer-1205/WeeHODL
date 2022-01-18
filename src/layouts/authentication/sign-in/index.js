@@ -22,6 +22,8 @@ import Telegram from "assets/images/telegram.png";
 import { useMaterialUIController, setAuthenticated, setAccount } from "context";
 
 // wallet connect
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 
 // css
 import "./index.css";
@@ -30,12 +32,13 @@ function Basic() {
   const [controller, dispatch] = useMaterialUIController();
   const navigate = useNavigate();
   const [metamaskTitle, setMetamaskTitle] = useState("Metamask")
+  const { activate } = useWeb3React();
 
   const getAccount = async () => {
     if (window.ethereum) {
       const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-      const account = accounts[0];
-      return account;
+      const accountAddress = accounts[0];
+      return accountAddress;
     }
     setMetamaskTitle("Opening Metamask...");
     window.location.href = "https://metamask.io/download";
@@ -51,6 +54,31 @@ function Basic() {
           navigate("/dashboard");
         }
       })
+  };
+
+  const walletconnect = new WalletConnectConnector({
+    rpc: {
+      1: 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC',
+    },
+    bridge: 'https://bridge.walletconnect.org',
+    qrcode: true,
+    pollingInterval: 15000,
+  });
+
+  const connectWallet = async (connector) => {
+    if (
+      connector instanceof WalletConnectConnector &&
+      connector.walletConnectProvider?.wc?.uri
+    ) {
+      connector.walletConnectProvider = undefined;
+    }
+    // eslint-disable-next-line
+    connector &&
+      activate(connector, undefined, true).catch((error) => {
+        if (error instanceof UnsupportedChainIdError) {
+          activate(connector); // a little janky...can't use setError because the connector isn't set
+        }
+      });
   };
   return (
     <BasicLayout image={bgImage}>
@@ -79,7 +107,7 @@ function Basic() {
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth>
+              <MDButton variant="gradient" color="info" fullWidth onClick={() => { connectWallet(walletconnect); }}>
                 <img alt="wallet_connect" src={WalletConnectImg} width="30" />
                 Wallet Connect
               </MDButton>
