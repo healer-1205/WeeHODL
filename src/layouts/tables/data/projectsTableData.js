@@ -41,7 +41,7 @@ export default function data() {
   return {
     columns: [
       { Header: "project", accessor: "project", width: "30%", align: "left" },
-      { Header: "budget", accessor: "budget", align: "left" },
+      { Header: "investment", accessor: "budget", align: "left" },
       { Header: "status", accessor: "status", align: "center" },
       { Header: "completion", accessor: "completion", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
@@ -49,7 +49,7 @@ export default function data() {
 
     rows: [
       {
-        project: <Project image={LogoAsana} name="Asana" />,
+        project: <Project name="Test1" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $2,500
@@ -68,7 +68,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoGithub} name="Github" />,
+        project: <Project name="Test2" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $5,000
@@ -87,7 +87,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoAtlassian} name="Atlassian" />,
+        project: <Project name="Test3" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $3,400
@@ -106,7 +106,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoSpotify} name="Spotify" />,
+        project: <Project name="Test4" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $14,000
@@ -125,7 +125,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoSlack} name="Slack" />,
+        project: <Project name="Test5" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $1,000
@@ -144,7 +144,7 @@ export default function data() {
         ),
       },
       {
-        project: <Project image={logoInvesion} name="Invesion" />,
+        project: <Project name="Test6" />,
         budget: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $2,300

@@ -20,14 +20,11 @@
   10. The `component` key is used to store the component of its route.
 */
 
-// Material Dashboard 2 React layouts
-
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
-import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import PrivateRoute from "PrivateRoute";
 // @mui icons
@@ -36,23 +33,23 @@ import Icon from "@mui/material/Icon";
 const routes = [
   {
     type: "collapse",
-    name: "Dashboard",
+    name: "User Wallet",
     key: "dashboard",
-    icon: <Icon fontSize="small">dashboard</Icon>,
-    route: "/dashboard",
+    icon: <Icon fontSize="small">account_balance_wallet</Icon>,
+    route: "/wallet",
     component: <PrivateRoute><Dashboard /></PrivateRoute>,
   },
   {
     type: "collapse",
-    name: "Tables",
+    name: "Project List",
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
-    route: "/tables",
+    route: "/projects",
     component: <PrivateRoute><Tables /></PrivateRoute>,
   },
   {
     type: "collapse",
-    name: "Billing",
+    name: "Shill Level Box",
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/billing",
@@ -60,15 +57,15 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Notifications",
+    name: "OTC Deal Page",
     key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
+    icon: <Icon fontSize="small">gesture</Icon>,
     route: "/notifications",
     component: <PrivateRoute><Notifications /></PrivateRoute>,
   },
   {
     type: "collapse",
-    name: "Profile",
+    name: "Contact to Admin",
     key: "profile",
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
@@ -76,17 +73,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    icon: <Icon fontSize="small">login</Icon>,
-    route: "/authentication/sign-in",
-    component: <SignIn />,
-  },
-  {
-    type: "collapse",
-    name: "Sign Up",
+    name: "Log Out",
     key: "sign-up",
-    icon: <Icon fontSize="small">assignment</Icon>,
+    icon: <Icon fontSize="small">logout</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
   },

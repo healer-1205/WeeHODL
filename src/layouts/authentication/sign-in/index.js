@@ -51,7 +51,7 @@ function Basic() {
         if (res !== false) {
           setAccount(dispatch, String(res));
           setAuthenticated(dispatch, true);
-          navigate("/dashboard");
+          navigate("/wallet");
         }
       })
   };

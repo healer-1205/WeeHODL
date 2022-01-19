@@ -19,10 +19,9 @@ import themeDark from "assets/theme-dark";
 
 import routes from "routes";
 
-// Material Dashboard 2 React contexts
 import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "context";
 
-// import PrivateRoute from "PrivateRoute";
+import SignIn from "layouts/authentication/sign-in";
 
 // Images
 import brandWhite from "assets/images/logo-ct.png";
@@ -130,7 +129,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
+        <Route path="*" element={<SignIn />} />
       </Routes>
     </ThemeProvider>
   );
