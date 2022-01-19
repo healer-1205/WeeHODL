@@ -14,9 +14,9 @@ import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-import Metamask from "assets/images/metamask.svg";
+import MetamaskImg from "assets/images/metamask.svg";
 import WalletConnectImg from "assets/images/wallet_connect.svg";
-import Telegram from "assets/images/telegram.png";
+import TrustWalletImg from "assets/images/trustWallet.svg";
 
 // import context
 import { useMaterialUIController, setAuthenticated, setAccount } from "context";
@@ -25,8 +25,14 @@ import { useMaterialUIController, setAuthenticated, setAccount } from "context";
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 
-// css
-import "./index.css";
+import {
+  injected,
+  walletconnect,
+  lattice,
+  walletlink,
+  portis,
+  torus
+} from "../../../constants/web3";
 
 function Basic() {
   const [controller, dispatch] = useMaterialUIController();
@@ -56,15 +62,6 @@ function Basic() {
       })
   };
 
-  const walletconnect = new WalletConnectConnector({
-    rpc: {
-      1: 'https://eth-mainnet.alchemyapi.io/v2/q1gSNoSMEzJms47Qn93f9-9Xg5clkmEC',
-    },
-    bridge: 'https://bridge.walletconnect.org',
-    qrcode: true,
-    pollingInterval: 15000,
-  });
-
   const connectWallet = async (connector) => {
     if (
       connector instanceof WalletConnectConnector &&
@@ -85,9 +82,9 @@ function Basic() {
       <Card>
         <MDBox
           variant="gradient"
-          bgColor="info"
+          bgColor="success"
           borderRadius="lg"
-          coloredShadow="info"
+          coloredShadow="success"
           mx={2}
           mt={-3}
           p={2}
@@ -101,22 +98,22 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={clickMetamask}>
-                <img alt="metamask" src={Metamask} width="30" />
+              <MDButton variant="gradient" color="success" fullWidth onClick={clickMetamask}>
+                <img alt="metamask" src={MetamaskImg} width="30" />
                 {metamaskTitle}
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="info" fullWidth onClick={() => { connectWallet(walletconnect); }}>
+              <MDButton variant="gradient" color="success" fullWidth onClick={() => { connectWallet(injected); }}>
+                <img alt="wallet_connect" src={TrustWalletImg} width="30" />
+                TrustWallet
+              </MDButton>
+            </MDBox>
+            <MDBox mt={2} mb={1}>
+              <MDButton variant="gradient" color="success" fullWidth onClick={() => { connectWallet(walletconnect); }}>
                 <img alt="wallet_connect" src={WalletConnectImg} width="30" />
                 Wallet Connect
               </MDButton>
-            </MDBox>
-            <MDBox mt={2} mb={1} className="telegram_container">
-              <a href="https://t.me/+q7gyM9U0OXo4M2Q0" className="telegram">
-                <img alt="telegram" src={Telegram} width="30" />
-                TELEGRAM
-              </a>
             </MDBox>
           </MDBox>
         </MDBox>
