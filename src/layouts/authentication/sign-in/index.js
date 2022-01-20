@@ -38,7 +38,8 @@ import {
 function Basic() {
   const [controller, dispatch] = useMaterialUIController();
   const navigate = useNavigate();
-  const [metamaskTitle, setMetamaskTitle] = useState("Metamask")
+  const [metamaskTitle, setMetamaskTitle] = useState("Metamask");
+  const [solflareTitle, setSolflareTitle] = useState("Solflare");
   const { activate, account, chainId } = useWeb3React();
 
   // const getAccount = async () => {
@@ -124,7 +125,7 @@ function Basic() {
             <MDBox mt={2} mb={1}>
               <MDButton variant="gradient" color="secondary" fullWidth onClick={() => { connectWallet(injected, 250); }}>
                 <img alt="wallet_connect" src={SolflareWalletImg} width="30" />
-                Solflare
+                {solflareTitle}
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
