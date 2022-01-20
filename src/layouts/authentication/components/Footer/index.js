@@ -38,7 +38,7 @@ function Footer({ light }) {
             })}
           >
             <MDBox component="li" px={2} lineHeight={1}>
-              <Link href=":;javascript" target="_blank">
+              <Link href="https://t.me/+q7gyM9U0OXo4M2Q0" target="_blank">
                 <MDTypography
                   variant="button"
                   fontWeight="regular"
