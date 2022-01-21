@@ -18,7 +18,7 @@ import MetamaskImg from "assets/images/metamask.svg";
 import WalletConnectImg from "assets/images/wallet_connect.svg";
 import TrustWalletImg from "assets/images/trustWallet.svg";
 import SolflareWalletImg from "assets/images/solflare.png";
-
+import * as web3 from "@solana/web3.js";
 // import context
 import { useMaterialUIController, setAuthenticated, setAccount } from "context";
 
@@ -63,6 +63,31 @@ function Basic() {
   //       }
   //     })
   // };
+
+  const solflareConnect = () => {
+    const isSolflareInstalled = window.solflare && window.solflare.isSolflare;
+    if (isSolflareInstalled) {
+      const provider = window.solflare;
+      if (provider.isSolflare) {
+        window.solflare.connect();
+      }
+      window.solflare.on("connect", async () => {
+        const  connection = new web3.Connection(
+          web3.clusterApiUrl('mainnet-beta'),
+          'confirmed',
+        );
+        const solAccount = await connection.getAccountInfo(window.solflare.publicKey);
+        const solAccountAddress = window.solflare.publicKey.toBase58();
+        setAccount(dispatch, String(solAccountAddress));
+        setAuthenticated(dispatch, true);
+        navigate("/wallet");
+      });
+    }
+    else {
+      setSolflareTitle("Opening Solflare...");
+      window.open('https://solflare.com', '_blank');
+    }
+  }
 
   const connectWallet = async (connector, currentChainId) => {
     if (
@@ -123,7 +148,7 @@ function Basic() {
               </MDButton>
             </MDBox>
             <MDBox mt={2} mb={1}>
-              <MDButton variant="gradient" color="secondary" fullWidth onClick={() => { connectWallet(injected, 250); }}>
+              <MDButton variant="gradient" color="secondary" fullWidth onClick={() => { solflareConnect() }}>
                 <img alt="wallet_connect" src={SolflareWalletImg} width="30" />
                 {solflareTitle}
               </MDButton>
