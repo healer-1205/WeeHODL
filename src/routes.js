@@ -20,7 +20,7 @@
   10. The `component` key is used to store the component of its route.
 */
 
-import Dashboard from "layouts/dashboard";
+import Wallet from "layouts/wallet";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
@@ -34,10 +34,10 @@ const routes = [
   {
     type: "collapse",
     name: "User Wallet",
-    key: "dashboard",
+    key: "wallet",
     icon: <Icon fontSize="small">account_balance_wallet</Icon>,
     route: "/wallet",
-    component: <PrivateRoute><Dashboard /></PrivateRoute>,
+    component: <PrivateRoute><Wallet /></PrivateRoute>,
   },
   {
     type: "collapse",

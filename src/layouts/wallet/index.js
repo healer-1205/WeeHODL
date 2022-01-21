@@ -1,10 +1,8 @@
 // @mui material components
 import Grid from "@mui/material/Grid";
 
-// Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
-// Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -13,14 +11,14 @@ import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 // Data
-import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+import reportsBarChartData from "layouts/wallet/data/reportsBarChartData";
+import reportsLineChartData from "layouts/wallet/data/reportsLineChartData";
 
 // Dashboard components
-import Projects from "layouts/dashboard/components/Projects";
-import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import Projects from "layouts/wallet/components/Projects";
+import OrdersOverview from "layouts/wallet/components/OrdersOverview";
 
-function Dashboard() {
+function Wallet() {
   const { sales, tasks } = reportsLineChartData;
 
   return (
@@ -140,9 +138,9 @@ function Dashboard() {
           </Grid>
         </MDBox> */}
       </MDBox>
-      {/* <Footer /> */}
+      <Footer />
     </DashboardLayout>
   );
 }
 
-export default Dashboard;
+export default Wallet;

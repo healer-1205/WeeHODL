@@ -26,6 +26,9 @@ import SignIn from "layouts/authentication/sign-in";
 // Images
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();

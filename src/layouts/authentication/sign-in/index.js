@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -80,7 +81,18 @@ function Basic() {
         const solAccountAddress = window.solflare.publicKey.toBase58();
         setAccount(dispatch, String(solAccountAddress));
         setAuthenticated(dispatch, true);
-        navigate("/wallet");
+        const registerData = {
+          address: String(solAccountAddress),
+          walletType: "Solflare"
+        };
+  
+        axios
+          .post("/users/register", registerData)
+          .then(() => {navigate("/wallet")})
+          .catch(err => {
+            // eslint-disable-next-line
+            console.log(err)
+          });
       });
     }
     else {
@@ -112,7 +124,18 @@ function Basic() {
     if (account !== undefined) {
       setAccount(dispatch, String(account));
       setAuthenticated(dispatch, true);
-      navigate("/wallet");
+      const registerData = {
+        address: String(account),
+        walletType: "Metamask"
+      };
+
+      axios
+        .post("/users/register", registerData)
+        .then(() => {navigate("/wallet")})
+        .catch(err => {
+          // eslint-disable-next-line
+          console.log(err)
+        });
     }
   }, [account, chainId]);
   return (
