@@ -100,7 +100,7 @@ function Notifications() {
       <DashboardNavbar />
       <MDBox mt={6} mb={3}>
         <Grid container spacing={3} justifyContent="center">
-          <Grid item xs={12} lg={8}>
+          {/* <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2}>
                 <MDTypography variant="h5">Alerts</MDTypography>
@@ -132,9 +132,9 @@ function Notifications() {
                 </MDAlert>
               </MDBox>
             </Card>
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={12} lg={8}>
+          {/* <Grid item xs={12} lg={8}>
             <Card>
               <MDBox p={2} lineHeight={0}>
                 <MDTypography variant="h5">Notifications</MDTypography>
@@ -171,7 +171,7 @@ function Notifications() {
                 </Grid>
               </MDBox>
             </Card>
-          </Grid>
+          </Grid> */}
         </Grid>
       </MDBox>
       <Footer />

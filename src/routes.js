@@ -25,7 +25,6 @@ import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
-import SignUp from "layouts/authentication/sign-up";
 import PrivateRoute from "PrivateRoute";
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -70,14 +69,6 @@ const routes = [
     icon: <Icon fontSize="small">person</Icon>,
     route: "/profile",
     component: <PrivateRoute><Profile /></PrivateRoute>,
-  },
-  {
-    type: "collapse",
-    name: "Log Out",
-    key: "sign-up",
-    icon: <Icon fontSize="small">logout</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
   },
 ];
 

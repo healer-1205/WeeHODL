@@ -1,7 +1,3 @@
-/**
-
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 
@@ -24,9 +20,9 @@ import Transactions from "layouts/billing/components/Transactions";
 function Billing() {
   return (
     <DashboardLayout>
-      <DashboardNavbar absolute isMini />
+      <DashboardNavbar/>
       <MDBox mt={8}>
-        <MDBox mb={3}>
+        {/* <MDBox mb={3}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
               <Grid container spacing={3}>
@@ -68,7 +64,7 @@ function Billing() {
               <Transactions />
             </Grid>
           </Grid>
-        </MDBox>
+        </MDBox> */}
       </MDBox>
       <Footer />
     </DashboardLayout>

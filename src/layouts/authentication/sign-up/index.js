@@ -1,10 +1,5 @@
-/**
-
-*/
-
 // react-router-dom components
 import { Link } from "react-router-dom";
-
 // @mui material components
 import Card from "@mui/material/Card";
 import Checkbox from "@mui/material/Checkbox";

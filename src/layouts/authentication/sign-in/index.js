@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+// wallet connect
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import * as web3 from "@solana/web3.js";
 // @mui material components
 import Card from "@mui/material/Card";
-
 // Material components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -19,29 +21,19 @@ import MetamaskImg from "assets/images/metamask.svg";
 import WalletConnectImg from "assets/images/wallet_connect.svg";
 import TrustWalletImg from "assets/images/trustWallet.svg";
 import SolflareWalletImg from "assets/images/solflare.png";
-import * as web3 from "@solana/web3.js";
 // import context
-import { useMaterialUIController, setAuthenticated, setAccount } from "context";
-
-// wallet connect
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-
+import { useMaterialUIController, setAuthenticated, setAccount, setChainId } from "context";
 import {
   injected,
-  walletconnect,
-  lattice,
-  walletlink,
-  portis,
-  torus
+  walletconnect
 } from "../../../constants/web3";
 
-function Basic() {
+const Basic = () => {
   const [controller, dispatch] = useMaterialUIController();
   const navigate = useNavigate();
   const [metamaskTitle, setMetamaskTitle] = useState("Metamask");
   const [solflareTitle, setSolflareTitle] = useState("Solflare");
-  const { activate, account, chainId } = useWeb3React();
+  const { activate, account, chainId, active } = useWeb3React();
 
   // const getAccount = async () => {
   //   if (window.ethereum) {
@@ -85,7 +77,6 @@ function Basic() {
           address: String(solAccountAddress),
           walletType: "Solflare"
         };
-  
         axios
           .post("/users/register", registerData)
           .then(() => {navigate("/wallet")})
@@ -121,14 +112,14 @@ function Basic() {
       });
   };
   useEffect(() => {
-    if (account !== undefined) {
+    if (active) {
       setAccount(dispatch, String(account));
       setAuthenticated(dispatch, true);
+      setChainId(dispatch, chainId)
       const registerData = {
         address: String(account),
         walletType: "Metamask"
       };
-
       axios
         .post("/users/register", registerData)
         .then(() => {navigate("/wallet")})
@@ -136,8 +127,10 @@ function Basic() {
           // eslint-disable-next-line
           console.log(err)
         });
+    } else {
+      connectWallet(injected, 1)
     }
-  }, [account, chainId]);
+  }, [active, chainId]);
   return (
     <BasicLayout image={bgImage}>
       <Card>
