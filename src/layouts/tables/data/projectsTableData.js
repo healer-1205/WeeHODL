@@ -41,27 +41,29 @@ export default function data() {
   return {
     columns: [
       { Header: "project", accessor: "project", width: "30%", align: "left" },
-      { Header: "investment", accessor: "budget", align: "left" },
-      { Header: "status", accessor: "status", align: "center" },
-      { Header: "completion", accessor: "completion", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "amount invested", accessor: "invested_amount", align: "left" },
+      { Header: "token value", accessor: "token_value", align: "center" },
+      { Header: "investing detail", accessor: "investing_detail", align: "center" },
+      { Header: "next distribution date", accessor: "next_date", align: "center" },
+      { Header: "token claim", accessor: "claim", align: "center" },
     ],
 
     rows: [
       {
         project: <Project name="Test1" />,
-        budget: (
+        invested_amount: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $2,500
           </MDTypography>
         ),
-        status: (
+        token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             working
           </MDTypography>
         ),
-        completion: <Progress color="info" value={60} />,
-        action: (
+        investing_detail: <Progress color="info" value={60} />,
+        next_date: <Progress color="info" value={60} />,
+        claim: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
           </MDTypography>
@@ -69,18 +71,19 @@ export default function data() {
       },
       {
         project: <Project name="Test2" />,
-        budget: (
+        invested_amount: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $5,000
           </MDTypography>
         ),
-        status: (
+        token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             done
           </MDTypography>
         ),
-        completion: <Progress color="success" value={100} />,
-        action: (
+        investing_detail: <Progress color="success" value={100} />,
+        next_date: <Progress color="info" value={60} />,
+        claim: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
           </MDTypography>
@@ -88,18 +91,19 @@ export default function data() {
       },
       {
         project: <Project name="Test3" />,
-        budget: (
+        invested_amount: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $3,400
           </MDTypography>
         ),
-        status: (
+        token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             canceled
           </MDTypography>
         ),
-        completion: <Progress color="error" value={30} />,
-        action: (
+        investing_detail: <Progress color="error" value={30} />,
+        next_date: <Progress color="info" value={60} />,
+        claim: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
           </MDTypography>
@@ -107,18 +111,19 @@ export default function data() {
       },
       {
         project: <Project name="Test4" />,
-        budget: (
+        invested_amount: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $14,000
           </MDTypography>
         ),
-        status: (
+        token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             working
           </MDTypography>
         ),
-        completion: <Progress color="info" value={80} />,
-        action: (
+        investing_detail: <Progress color="info" value={80} />,
+        next_date: <Progress color="info" value={60} />,
+        claim: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
           </MDTypography>
@@ -126,18 +131,19 @@ export default function data() {
       },
       {
         project: <Project name="Test5" />,
-        budget: (
+        invested_amount: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $1,000
           </MDTypography>
         ),
-        status: (
+        token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             canceled
           </MDTypography>
         ),
-        completion: <Progress color="error" value={0} />,
-        action: (
+        investing_detail: <Progress color="error" value={0} />,
+        next_date: <Progress color="info" value={60} />,
+        claim: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
           </MDTypography>
@@ -145,18 +151,19 @@ export default function data() {
       },
       {
         project: <Project name="Test6" />,
-        budget: (
+        invested_amount: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $2,300
           </MDTypography>
         ),
-        status: (
+        token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
             done
           </MDTypography>
         ),
-        completion: <Progress color="success" value={100} />,
-        action: (
+        investing_detail: <Progress color="success" value={100} />,
+        next_date: <Progress color="info" value={60} />,
+        claim: (
           <MDTypography component="a" href="#" color="text">
             <Icon>more_vert</Icon>
           </MDTypography>
