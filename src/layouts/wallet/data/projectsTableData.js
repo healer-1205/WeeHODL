@@ -1,13 +1,9 @@
 /* eslint-disable react/prop-types */
 
-// @mui material components
-import Icon from "@mui/material/Icon";
-
 // Soft UI Dashboard React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
-import MDProgress from "components/MDProgress";
 import MDButton from "components/MDButton";
 
 // Images
@@ -22,17 +18,6 @@ export default function data() {
       <MDTypography display="block" variant="button" fontWeight="medium" ml={1} lineHeight={1}>
         {name}
       </MDTypography>
-    </MDBox>
-  );
-
-  const Progress = ({ color, value }) => (
-    <MDBox display="flex" alignItems="center">
-      <MDTypography variant="caption" color="text" fontWeight="medium">
-        {value}%
-      </MDTypography>
-      <MDBox ml={0.5} width="9rem">
-        <MDProgress variant="gradient" color={color} value={value} />
-      </MDBox>
     </MDBox>
   );
 

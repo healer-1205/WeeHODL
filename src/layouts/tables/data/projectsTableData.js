@@ -8,6 +8,7 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDProgress from "components/MDProgress";
+import MDButton from "components/MDButton";
 
 // Images
 import LogoAsana from "assets/images/small-logos/logo-asana.svg";
@@ -42,6 +43,7 @@ export default function data() {
     columns: [
       { Header: "project", accessor: "project", width: "30%", align: "left" },
       { Header: "amount invested", accessor: "invested_amount", align: "left" },
+      { Header: "token", accessor: "token", align: "center" },
       { Header: "token value", accessor: "token_value", align: "center" },
       { Header: "investing detail", accessor: "investing_detail", align: "center" },
       { Header: "next distribution date", accessor: "next_date", align: "center" },
@@ -56,16 +58,21 @@ export default function data() {
             $2,500
           </MDTypography>
         ),
+        token: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            BNB
+          </MDTypography>
+        ),
         token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            working
+            $420
           </MDTypography>
         ),
         investing_detail: <Progress color="info" value={60} />,
-        next_date: <Progress color="info" value={60} />,
+        next_date: "1/26/2022",
         claim: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
+          <MDTypography color="text">
+            <MDButton color="success">Claim</MDButton>
           </MDTypography>
         ),
       },
@@ -76,16 +83,21 @@ export default function data() {
             $5,000
           </MDTypography>
         ),
+        token: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            BUSD
+          </MDTypography>
+        ),
         token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            done
+            $1
           </MDTypography>
         ),
         investing_detail: <Progress color="success" value={100} />,
-        next_date: <Progress color="info" value={60} />,
+        next_date: "1/26/2022",
         claim: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
+          <MDTypography color="text">
+            <MDButton color="success">Claim</MDButton>
           </MDTypography>
         ),
       },
@@ -96,16 +108,21 @@ export default function data() {
             $3,400
           </MDTypography>
         ),
+        token: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            DOGE
+          </MDTypography>
+        ),
         token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            canceled
+            $0.1276
           </MDTypography>
         ),
         investing_detail: <Progress color="error" value={30} />,
-        next_date: <Progress color="info" value={60} />,
+        next_date: "1/26/2022",
         claim: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
+          <MDTypography color="text">
+            <MDButton color="success">Claim</MDButton>
           </MDTypography>
         ),
       },
@@ -116,16 +133,21 @@ export default function data() {
             $14,000
           </MDTypography>
         ),
+        token: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            AVAX
+          </MDTypography>
+        ),
         token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            working
+            $57.322
           </MDTypography>
         ),
         investing_detail: <Progress color="info" value={80} />,
-        next_date: <Progress color="info" value={60} />,
+        next_date: "1/26/2022",
         claim: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
+          <MDTypography color="text">
+            <MDButton color="success">Claim</MDButton>
           </MDTypography>
         ),
       },
@@ -136,16 +158,21 @@ export default function data() {
             $1,000
           </MDTypography>
         ),
+        token: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            UST
+          </MDTypography>
+        ),
         token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            canceled
+            $0.999
           </MDTypography>
         ),
         investing_detail: <Progress color="error" value={0} />,
-        next_date: <Progress color="info" value={60} />,
+        next_date: "1/26/2022",
         claim: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
+          <MDTypography color="text">
+            <MDButton color="success">Claim</MDButton>
           </MDTypography>
         ),
       },
@@ -156,16 +183,21 @@ export default function data() {
             $2,300
           </MDTypography>
         ),
+        token: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            SHIB
+          </MDTypography>
+        ),
         token_value: (
           <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            done
+            $0.00
           </MDTypography>
         ),
         investing_detail: <Progress color="success" value={100} />,
-        next_date: <Progress color="info" value={60} />,
+        next_date: "1/26/2022",
         claim: (
-          <MDTypography component="a" href="#" color="text">
-            <Icon>more_vert</Icon>
+          <MDTypography color="text">
+            <MDButton color="success">Claim</MDButton>
           </MDTypography>
         ),
       },
