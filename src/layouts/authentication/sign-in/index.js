@@ -127,8 +127,6 @@ const Basic = () => {
           // eslint-disable-next-line
           console.log(err)
         });
-    } else {
-      connectWallet(injected, 1)
     }
   }, [active, chainId]);
   return (
