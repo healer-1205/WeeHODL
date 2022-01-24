@@ -73,18 +73,18 @@ const Basic = () => {
         const solAccountAddress = window.solflare.publicKey.toBase58();
         setAccount(dispatch, String(solAccountAddress));
         setAuthenticated(dispatch, true);
-        navigate("/wallet");
-        // const registerData = {
-        //   address: String(solAccountAddress),
-        //   walletType: "Solflare"
-        // };
-        // axios
-        //   .post("/users/register", registerData)
-        //   .then(() => {navigate("/wallet")})
-        //   .catch(err => {
-        //     // eslint-disable-next-line
-        //     console.log(err)
-        //   });
+        navigate("/wallet")
+        const registerData = {
+          address: String(solAccountAddress),
+          walletType: "Solflare"
+        };
+        axios
+          .post("/users/register", registerData)
+          .then(() => {navigate("/wallet")})
+          .catch(err => {
+            // eslint-disable-next-line
+            console.log(err)
+          });
       });
     }
     else {
