@@ -73,17 +73,18 @@ const Basic = () => {
         const solAccountAddress = window.solflare.publicKey.toBase58();
         setAccount(dispatch, String(solAccountAddress));
         setAuthenticated(dispatch, true);
-        const registerData = {
-          address: String(solAccountAddress),
-          walletType: "Solflare"
-        };
-        axios
-          .post("/users/register", registerData)
-          .then(() => {navigate("/wallet")})
-          .catch(err => {
-            // eslint-disable-next-line
-            console.log(err)
-          });
+        navigate("/wallet");
+        // const registerData = {
+        //   address: String(solAccountAddress),
+        //   walletType: "Solflare"
+        // };
+        // axios
+        //   .post("/users/register", registerData)
+        //   .then(() => {navigate("/wallet")})
+        //   .catch(err => {
+        //     // eslint-disable-next-line
+        //     console.log(err)
+        //   });
       });
     }
     else {
@@ -115,18 +116,19 @@ const Basic = () => {
     if (active) {
       setAccount(dispatch, String(account));
       setAuthenticated(dispatch, true);
-      setChainId(dispatch, chainId)
-      const registerData = {
-        address: String(account),
-        walletType: "Metamask"
-      };
-      axios
-        .post("/users/register", registerData)
-        .then(() => {navigate("/wallet")})
-        .catch(err => {
-          // eslint-disable-next-line
-          console.log(err)
-        });
+      setChainId(dispatch, chainId);
+      navigate("/wallet");
+      // const registerData = {
+      //   address: String(account),
+      //   walletType: "Metamask"
+      // };
+      // axios
+      //   .post("/users/register", registerData)
+      //   .then(() => {navigate("/wallet")})
+      //   .catch(err => {
+      //     // eslint-disable-next-line
+      //     console.log(err)
+      //   });
     }
   }, [active, chainId]);
   return (
