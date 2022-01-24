@@ -9,14 +9,14 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-import projectsTableData from "layouts/wallet/data/projectsTableData";
+import walletsTableData from "layouts/wallet/data/walletsTableData";
 
 // context
 import { useMaterialUIController } from "context";
 
 const Wallet = () => {
   const [controller, dispatch] = useMaterialUIController();
-  const { columns: pColumns, rows: pRows } = projectsTableData();
+  const { columns: pColumns, rows: pRows } = walletsTableData();
   const {
     account,
   } = controller;
@@ -38,7 +38,7 @@ const Wallet = () => {
                 borderRadius="lg"
                 coloredShadow="info"
               >
-                <MDTypography variant="h6" color="white" style={{display: "flex"}}>
+                <MDTypography variant="h6" color="white" style={{ display: "flex" }}>
                   Wallet Address: &nbsp;&nbsp;{account}
                 </MDTypography>
               </MDBox>

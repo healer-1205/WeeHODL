@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 
-// Soft UI Dashboard React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
@@ -12,7 +11,7 @@ import BNBImg from "assets/images/tokens/binance-coin-bnb.svg";
 import BUSDImg from "assets/images/tokens/busd-logo.svg";
 
 export default function data() {
-  const Project = ({ image, name }) => (
+  const Wallet = ({ image, name }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDAvatar src={image} name={name} size="sm" variant="rounded" />
       <MDTypography display="block" variant="button" fontWeight="medium" ml={1} lineHeight={1}>
@@ -32,7 +31,7 @@ export default function data() {
 
     rows: [
       {
-        assets: <Project image={ETHImg} name="ETH" />,
+        assets: <Wallet image={ETHImg} name="ETH" />,
         price: (
           <MDTypography component="p" href="#" variant="button" color="text" fontWeight="medium">
             $2,500
@@ -55,7 +54,7 @@ export default function data() {
         ),
       },
       {
-        assets: <Project image={BNBImg} name="BNB" />,
+        assets: <Wallet image={BNBImg} name="BNB" />,
         price: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $5,000
@@ -78,7 +77,7 @@ export default function data() {
         ),
       },
       {
-        assets: <Project image={BUSDImg} name="BUSD" />,
+        assets: <Wallet image={BUSDImg} name="BUSD" />,
         price: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
             $1
