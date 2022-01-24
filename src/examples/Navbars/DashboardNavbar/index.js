@@ -8,6 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
 
+// wallet connect
+import { useWeb3React } from '@web3-react/core';
+
 // Material React components
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
@@ -32,6 +35,7 @@ import {
   setMiniSidenav,
   setOpenConfigurator,
   setAuthenticated,
+  setAccount,
 } from "context";
 
 function DashboardNavbar({ absolute, light, isMini }) {
@@ -40,6 +44,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode, account, isAuthenticated, currentChainId } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const { deactivate } = useWeb3React();
 
   useEffect(() => {
     // Setting the navbar type
@@ -105,7 +110,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
   });
 
   const logout = () => {
+    deactivate();
     setAuthenticated(dispatch, false);
+    setAccount(dispatch, "");
   }
 
   return (
