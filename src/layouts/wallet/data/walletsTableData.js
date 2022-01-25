@@ -1,25 +1,89 @@
 /* eslint-disable react/prop-types */
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDButton from "components/MDButton";
-
 // Images
 import ETHImg from "assets/images/tokens/Ethereum-Logo.svg";
-import BNBImg from "assets/images/tokens/binance-coin-bnb.svg";
-import BUSDImg from "assets/images/tokens/busd-logo.svg";
+// context
+import { useMaterialUIController } from "context";
+// mainnets
+import mainnets from "../../../constants/mainnets";
 
 export default function data() {
+  const [controller, dispatch] = useMaterialUIController();
+  const [walletData, setWalletData] = useState();
+  // const { account } = controller;
+  const account = "0x49f2fccd7baff5efee178554b712ad69ef8840c1";
+  // let tempArray = [];
+
+  const getWalletInfo = (apiUrl) =>
+    new Promise((resolve, reject) => {
+      axios
+        .get(apiUrl)
+        .then((res) => {
+          resolve(res.data.data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    })
+
+  // address: account address, type: mainnet type
+  const getURL = (address, type) => `https://api.debank.com/token/balance_list?user_addr=${address}&is_all=false&chain=${type}`;
+
+  useEffect(() => {
+    let apiCallResult;
+    let availableTokens = []; // tokens which users have in his wallet1
+    mainnets.map(async (mainnet, index) => {
+      const apiUrl = getURL(account, mainnet);
+      apiCallResult = await getWalletInfo(apiUrl)
+      if(apiCallResult.length > 0) {
+        availableTokens = [...availableTokens, ...apiCallResult]
+      }
+      if(index === mainnets.length - 1) {
+        let walletInfo = [];  // temp valuable to implement map function
+        availableTokens.map((item) => {
+          walletInfo = [...walletInfo, {
+            assets: <Wallet image={item.logo_url} name={item.optimized_symbol} />,
+            price: (
+              <MDTypography component="p" href="#" variant="button" color="text" fontWeight="medium">
+                $ {Math.round(item.price * 100) / 100}
+              </MDTypography>
+            ),
+            balance: (
+              <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
+                {Math.round((item.balance * (10 ** -18)) * 10000) / 10000}
+              </MDTypography>
+            ),
+            value: (
+              <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
+                $ {Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -18)) * 10000) / 10000))}
+              </MDTypography>
+            ),
+            action: (
+              <MDTypography color="text">
+                <MDButton color="info">Withdraw</MDButton>
+              </MDTypography>
+            ),
+          }]
+          return true;
+        })
+        setWalletData(walletInfo)
+      }
+    });
+  }, []);
+
   const Wallet = ({ image, name }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
-      <MDAvatar src={image} name={name} size="sm" variant="rounded" />
+      <MDAvatar src={image} name={name} size="xs" variant="rounded" />
       <MDTypography display="block" variant="button" fontWeight="medium" ml={1} lineHeight={1}>
         {name}
       </MDTypography>
     </MDBox>
   );
-
   return {
     columns: [
       { Header: "assets", accessor: "assets", width: "30%", align: "left" },
@@ -29,76 +93,6 @@ export default function data() {
       { Header: "action", accessor: "action", align: "center" },
     ],
 
-    rows: [
-      {
-        assets: <Wallet image={ETHImg} name="ETH" />,
-        price: (
-          <MDTypography component="p" href="#" variant="button" color="text" fontWeight="medium">
-            $2,500
-          </MDTypography>
-        ),
-        balance: (
-          <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
-            0.1
-          </MDTypography>
-        ),
-        value: (
-          <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
-            $250
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography color="text">
-            <MDButton color="info">Withdraw</MDButton>
-          </MDTypography>
-        ),
-      },
-      {
-        assets: <Wallet image={BNBImg} name="BNB" />,
-        price: (
-          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
-            $5,000
-          </MDTypography>
-        ),
-        balance: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            0.01
-          </MDTypography>
-        ),
-        value: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            $50
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography color="text">
-            <MDButton color="info">Withdraw</MDButton>
-          </MDTypography>
-        ),
-      },
-      {
-        assets: <Wallet image={BUSDImg} name="BUSD" />,
-        price: (
-          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
-            $1
-          </MDTypography>
-        ),
-        balance: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            100
-          </MDTypography>
-        ),
-        value: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            $100
-          </MDTypography>
-        ),
-        action: (
-          <MDTypography color="text">
-            <MDButton color="info">Withdraw</MDButton>
-          </MDTypography>
-        ),
-      },
-    ],
+    rows: walletData === undefined ? [] : walletData,
   };
 }
