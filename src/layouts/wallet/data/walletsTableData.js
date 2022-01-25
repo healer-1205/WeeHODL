@@ -15,8 +15,7 @@ import mainnets from "../../../constants/mainnets";
 export default function data() {
   const [controller, dispatch] = useMaterialUIController();
   const [walletData, setWalletData] = useState();
-  // const { account } = controller;
-  const account = "0x49f2fccd7baff5efee178554b712ad69ef8840c1";
+  const { account } = controller;
   // let tempArray = [];
 
   const getWalletInfo = (apiUrl) =>
