@@ -5,8 +5,6 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDButton from "components/MDButton";
-// Images
-import ETHImg from "assets/images/tokens/Ethereum-Logo.svg";
 // context
 import { useMaterialUIController } from "context";
 // mainnets
@@ -16,7 +14,6 @@ export default function data() {
   const [controller, dispatch] = useMaterialUIController();
   const [walletData, setWalletData] = useState();
   const { account } = controller;
-  // let tempArray = [];
 
   const getWalletInfo = (apiUrl) =>
     new Promise((resolve, reject) => {
@@ -36,13 +33,15 @@ export default function data() {
   useEffect(() => {
     let apiCallResult;
     let availableTokens = []; // tokens which users have in his wallet1
+    let completed = 0;
     mainnets.map(async (mainnet, index) => {
       const apiUrl = getURL(account, mainnet);
-      apiCallResult = await getWalletInfo(apiUrl)
+      apiCallResult = await getWalletInfo(apiUrl);
+      completed += 1;
       if(apiCallResult.length > 0) {
         availableTokens = [...availableTokens, ...apiCallResult]
       }
-      if(index === mainnets.length - 1) {
+      if(completed === mainnets.length - 1) {
         let walletInfo = [];  // temp valuable to implement map function
         availableTokens.map((item) => {
           walletInfo = [...walletInfo, {

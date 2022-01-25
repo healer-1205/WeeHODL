@@ -11,15 +11,8 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import walletsTableData from "layouts/wallet/data/walletsTableData";
 
-// context
-import { useMaterialUIController } from "context";
-
 const Wallet = () => {
-  const [controller, dispatch] = useMaterialUIController();
   const { columns: pColumns, rows: pRows } = walletsTableData();
-  const {
-    account,
-  } = controller;
 
   return (
     <DashboardLayout>
@@ -39,7 +32,7 @@ const Wallet = () => {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white" style={{ display: "flex" }}>
-                  Wallet Address: &nbsp;&nbsp;{account}
+                  Wallet Assets Information
                 </MDTypography>
               </MDBox>
               <MDBox pt={3}>
