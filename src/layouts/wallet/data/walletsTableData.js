@@ -53,12 +53,16 @@ export default function data() {
             ),
             balance: (
               <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
-                {Math.round((item.balance * (10 ** -18)) * 10000) / 10000}
+                {item.id === "0xdac17f958d2ee523a2206206994597c13d831ec7" ?
+                  Math.round((item.balance * (10 ** -6)) * 10000) / 10000 :
+                  Math.round((item.balance * (10 ** -18)) * 10000) / 10000}
               </MDTypography>
             ),
             value: (
               <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
-                $ {Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -18)) * 10000) / 10000))}
+                $ {item.id === "0xdac17f958d2ee523a2206206994597c13d831ec7" ? 
+                Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -6)) * 10000) / 10000)) :
+                Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -18)) * 10000) / 10000))}
               </MDTypography>
             ),
             action: (
