@@ -6,13 +6,13 @@ import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController } from "context";
+import { useMaterialUIController, setLoading } from "context";
 // mainnets
 import mainnets from "../../../constants/mainnets";
 
 export default function data() {
-  const [controller, dispatch] = useMaterialUIController();
   const [walletData, setWalletData] = useState();
+  const [controller, dispatch] = useMaterialUIController();
   const { account } = controller;
 
   const getWalletInfo = (apiUrl) =>
@@ -34,14 +34,14 @@ export default function data() {
     let apiCallResult;
     let availableTokens = []; // tokens which users have in his wallet1
     let completed = 0;
-    mainnets.map(async (mainnet, index) => {
+    mainnets.map(async (mainnet) => {
       const apiUrl = getURL(account, mainnet);
       apiCallResult = await getWalletInfo(apiUrl);
       completed += 1;
-      if(apiCallResult.length > 0) {
+      if (apiCallResult.length > 0) {
         availableTokens = [...availableTokens, ...apiCallResult]
       }
-      if(completed === mainnets.length - 1) {
+      if (completed === mainnets.length - 1) {
         let walletInfo = [];  // temp valuable to implement map function
         availableTokens.map((item) => {
           walletInfo = [...walletInfo, {
@@ -69,7 +69,8 @@ export default function data() {
           }]
           return true;
         })
-        setWalletData(walletInfo)
+        setLoading(dispatch, false);
+        setWalletData(walletInfo);
       }
     });
   }, []);
