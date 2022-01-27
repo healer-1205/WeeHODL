@@ -34,6 +34,7 @@ export default function data() {
     let apiCallResult;
     let availableTokens = []; // tokens which users have in his wallet1
     let completed = 0;
+    setLoading(dispatch, true);
     mainnets.map(async (mainnet) => {
       const apiUrl = getURL(account, mainnet);
       apiCallResult = await getWalletInfo(apiUrl);

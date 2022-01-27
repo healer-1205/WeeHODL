@@ -74,7 +74,7 @@ function MaterialUIControllerProvider({ children }) {
     isAuthenticated: false,
     account: "",
     currentChainId: "",
-    loading: true,
+    loading: false,
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
