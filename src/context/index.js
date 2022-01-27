@@ -53,6 +53,12 @@ function reducer(state, action) {
     case "LOADING": {
       return { ...state, loading: action.value }
     }
+    case "MODAL_STATUS": {
+      return { ...state, openModal: action.value }
+    }
+    case "CURRENT_WITHDRAWN_TOKEN": {
+      return {...state, currentWithdrawnToken: action.value }
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -75,6 +81,8 @@ function MaterialUIControllerProvider({ children }) {
     account: "",
     currentChainId: "",
     loading: false,
+    openModal: false,
+    currentWithdrawnToken: "",
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -114,6 +122,8 @@ const setAuthenticated = (dispatch, value) => dispatch({ type: "AUTHENTICATED", 
 const setAccount = (dispatch, value) => dispatch({ type: "ACCOUNT", value });
 const setChainId = (dispatch, value) => dispatch({ type: "CHAINID", value });
 const setLoading = (dispatch, value) => dispatch({ type: "LOADING", value });
+const setOpenModal = (dispatch, value) => dispatch({ type: "MODAL_STATUS", value });
+const setCurrentWithdrawnToken = (dispatch, value) => dispatch({ type: "CURRENT_WITHDRAWN_TOKEN", value });
 
 export {
   MaterialUIControllerProvider,
@@ -132,4 +142,6 @@ export {
   setAccount,
   setChainId,
   setLoading,
+  setOpenModal,
+  setCurrentWithdrawnToken,
 };

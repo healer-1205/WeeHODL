@@ -1,12 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import axios from "axios";
+// @mui icons
+import Icon from "@mui/material/Icon";
+
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
 import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController, setLoading } from "context";
+import { useMaterialUIController, setLoading, setOpenModal, setCurrentWithdrawnToken } from "context";
 // mainnets
 import mainnets from "../../../constants/mainnets";
 
@@ -29,6 +32,12 @@ export default function data() {
 
   // address: account address, type: mainnet type
   const getURL = (address, type) => `https://api.debank.com/token/balance_list?user_addr=${address}&is_all=false&chain=${type}`;
+
+  // handel Modal Status
+  const handleModal = (item) => {
+    setOpenModal(dispatch, true);
+    setCurrentWithdrawnToken(dispatch, item);
+  }
 
   useEffect(() => {
     let apiCallResult;
@@ -61,14 +70,16 @@ export default function data() {
             ),
             value: (
               <MDTypography component="p" href="#" variant="caption" color="text" fontWeight="medium">
-                $ {item.id === "0xdac17f958d2ee523a2206206994597c13d831ec7" ? 
-                Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -6)) * 10000) / 10000)) :
-                Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -18)) * 10000) / 10000))}
+                $ {item.id === "0xdac17f958d2ee523a2206206994597c13d831ec7" ?
+                  Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -6)) * 10000) / 10000)) :
+                  Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -18)) * 10000) / 10000))}
               </MDTypography>
             ),
             action: (
               <MDTypography color="text">
-                <MDButton color="info">Withdraw</MDButton>
+                <MDButton variant="text" color="success" onClick={()=>{handleModal(item)}}>
+                  <Icon>paid</Icon>&nbsp;Withdraw
+                </MDButton>
               </MDTypography>
             ),
           }]

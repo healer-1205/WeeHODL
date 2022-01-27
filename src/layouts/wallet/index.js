@@ -14,12 +14,27 @@ import DataTable from "examples/Tables/DataTable";
 import walletsTableData from "layouts/wallet/data/walletsTableData";
 
 // context
-import { useMaterialUIController } from "context";
+import { useMaterialUIController, setOpenModal } from "context";
+
+// for modal
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import MDButton from "components/MDButton";
+import AdminWalletAddress from "constants/admin-wallet-address";
+import React from "react";
 
 const Wallet = () => {
   const { columns: pColumns, rows: pRows } = walletsTableData();
   const [controller, dispatch] = useMaterialUIController();
-  const { loading } = controller;
+  const { loading, openModal, account, currentWithdrawnToken } = controller;
+
+  const handleClose = () => {
+    setOpenModal(dispatch, false);
+  }
 
   return (
     <DashboardLayout style={{ position: "relative" }}>
@@ -63,6 +78,33 @@ const Wallet = () => {
           <Footer />
         </>
       }
+      <Dialog open={openModal} onClose={() => {handleClose()}}>
+        <DialogTitle>WITHDRAW</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            From:&nbsp;&nbsp;{account}
+          </DialogContentText>
+          <DialogContentText>
+            To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{AdminWalletAddress}
+          </DialogContentText>
+          <DialogContentText>
+            Token Name:&nbsp;&nbsp;{currentWithdrawnToken.name}
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="token_number"
+            label="Number Of Tokens"
+            type="number"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <MDButton color="error" onClick={() => {handleClose()}}>Cancel</MDButton>
+          <MDButton color="success" onClick={() => {handleClose()}}>Confirm</MDButton>
+        </DialogActions>
+      </Dialog>
     </DashboardLayout>
   );
 }
