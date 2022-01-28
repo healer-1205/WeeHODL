@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -25,15 +26,17 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import MDButton from "components/MDButton";
 import AdminWalletAddress from "constants/admin-wallet-address";
-import React from "react";
 
 const Wallet = () => {
   const { columns: pColumns, rows: pRows } = walletsTableData();
   const [controller, dispatch] = useMaterialUIController();
   const { loading, openModal, account, currentWithdrawnToken } = controller;
 
+  const [withdrawnTokenNumbers, setWithdrawnTokenNumbers] = useState(0);
+
   const handleClose = () => {
     setOpenModal(dispatch, false);
+    setWithdrawnTokenNumbers(0);
   }
 
   return (
@@ -98,6 +101,10 @@ const Wallet = () => {
             type="number"
             fullWidth
             variant="standard"
+            value={withdrawnTokenNumbers}
+            onChange={(e) => { setWithdrawnTokenNumbers(e.target.value) }}
+            error={withdrawnTokenNumbers >= currentWithdrawnToken.balance * (10 ** -18)}
+            helperText={withdrawnTokenNumbers >= currentWithdrawnToken.balance * (10 ** -18) ? "You don't have enough token to Withdraw this amount." : " "}
           />
         </DialogContent>
         <DialogActions>
