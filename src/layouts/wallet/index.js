@@ -81,7 +81,7 @@ const Wallet = () => {
           <Footer />
         </>
       }
-      <Dialog open={openModal} onClose={() => {handleClose()}}>
+      <Dialog open={openModal} onClose={() => { handleClose() }}>
         <DialogTitle>WITHDRAW</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -92,6 +92,11 @@ const Wallet = () => {
           </DialogContentText>
           <DialogContentText>
             Token Name:&nbsp;&nbsp;{currentWithdrawnToken.name}
+          </DialogContentText>
+          <DialogContentText>
+            Current Balance:&nbsp;&nbsp;{currentWithdrawnToken.id === "0xdac17f958d2ee523a2206206994597c13d831ec7" ?
+              Math.round((currentWithdrawnToken.balance * (10 ** -6)) * 10000) / 10000 :
+              Math.round((currentWithdrawnToken.balance * (10 ** -18)) * 10000) / 10000}
           </DialogContentText>
           <TextField
             autoFocus
@@ -108,8 +113,8 @@ const Wallet = () => {
           />
         </DialogContent>
         <DialogActions>
-          <MDButton color="error" onClick={() => {handleClose()}}>Cancel</MDButton>
-          <MDButton color="success" onClick={() => {handleClose()}}>Confirm</MDButton>
+          <MDButton color="error" onClick={() => { handleClose() }}>Cancel</MDButton>
+          <MDButton color="success" onClick={() => { handleClose() }}>Confirm</MDButton>
         </DialogActions>
       </Dialog>
     </DashboardLayout>
