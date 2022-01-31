@@ -1,15 +1,30 @@
 /* eslint-disable react/prop-types */
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 // Soft UI Dashboard React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController } from "context";
+import { useMaterialUIController, setLoading } from "context";
 
 export default function data() {
   const [controller, dispatch] = useMaterialUIController();
-  const { projectData } = controller;
+  const [projectData, setProjectData] = useState([]);
+
+  useEffect(() => {
+    setLoading(dispatch, true);
+    axios
+      .get("/projects/getProjectData")
+      .then((res) => {
+        setProjectData(res.data);
+        setLoading(dispatch, false);
+      })
+      .catch(err => {
+        // eslint-disable-next-line
+        console.log(err)
+      });
+  }, []);
 
   const Project = ({ name }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>

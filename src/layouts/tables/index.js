@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import Icon from "@mui/material/Icon";
+import Box from '@mui/material/Box';
+import { CircularProgress } from '@mui/material'
 import styled from "styled-components";
 // for modal
 import TextField from '@mui/material/TextField';
@@ -26,9 +28,8 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
-
 // context
-import { useMaterialUIController, setProjectData } from "context";
+import { useMaterialUIController } from "context";
 
 const ButtonPosition = styled.div`
   display: flex;
@@ -42,16 +43,7 @@ function Tables() {
   const [projectDescription, setProjectDescription] = useState("");
   const [athValue, setAth] = useState("");
   const [controller, dispatch] = useMaterialUIController();
-
-  useEffect(() => {
-    axios
-      .get("/projects/getProjectData")
-      .then((res) => { setProjectData(dispatch, res.data) })
-      .catch(err => {
-        // eslint-disable-next-line
-        console.log(err)
-      });
-  }, []);
+  const { loading } = controller;
 
   const handleModal = () => {
     setModalStatus(true);
@@ -85,37 +77,41 @@ function Tables() {
       <ButtonPosition>
         <MDButton color="primary" startIcon={<Icon>add</Icon>} onClick={() => { handleModal() }}>Add Project</MDButton>
       </ButtonPosition>
-      <MDBox pt={6} pb={3}>
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Card>
-              <MDBox
-                mx={2}
-                mt={-3}
-                py={3}
-                px={2}
-                variant="gradient"
-                bgColor="info"
-                borderRadius="lg"
-                coloredShadow="info"
-              >
-                <MDTypography variant="h6" color="white">
-                  Projects Table
-                </MDTypography>
-              </MDBox>
-              <MDBox pt={3}>
-                <DataTable
-                  table={{ columns: pColumns, rows: pRows }}
-                  isSorted={false}
-                  entriesPerPage={false}
-                  showTotalEntries={false}
-                  noEndBorder
-                />
-              </MDBox>
-            </Card>
+      {loading ?
+        <Box sx={{ display: 'flex', justifyContent: 'center', position: "absolute", top: "250px", right: "45%", zIndex: "1" }}>
+          <CircularProgress color="info" size={100} />
+        </Box> :
+        <MDBox pt={6} pb={3}>
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <Card>
+                <MDBox
+                  mx={2}
+                  mt={-3}
+                  py={3}
+                  px={2}
+                  variant="gradient"
+                  bgColor="info"
+                  borderRadius="lg"
+                  coloredShadow="info"
+                >
+                  <MDTypography variant="h6" color="white">
+                    Projects Table
+                  </MDTypography>
+                </MDBox>
+                <MDBox pt={3}>
+                  <DataTable
+                    table={{ columns: pColumns, rows: pRows }}
+                    isSorted={false}
+                    entriesPerPage={false}
+                    showTotalEntries={false}
+                    noEndBorder
+                  />
+                </MDBox>
+              </Card>
+            </Grid>
           </Grid>
-        </Grid>
-      </MDBox>
+        </MDBox>}
       <Dialog open={openModal} onClose={() => { handleClose() }} maxWidth="md">
         <DialogTitle>ADD PROJECT</DialogTitle>
         <DialogContent>
