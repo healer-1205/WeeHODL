@@ -1,12 +1,24 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
+import Icon from "@mui/material/Icon";
+import styled from "styled-components";
+// for modal
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-// Material Dashboard 2 React components
+// Material React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
+import MDButton from "components/MDButton";
 
-// Material Dashboard 2 React example components
+// Material React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
@@ -15,12 +27,64 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 
+// context
+import { useMaterialUIController, setProjectData } from "context";
+
+const ButtonPosition = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 function Tables() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
+  const [openModal, setModalStatus] = useState(false);
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [athValue, setAth] = useState("");
+  const [controller, dispatch] = useMaterialUIController();
+
+  useEffect(() => {
+    axios
+      .get("/projects/getProjectData")
+      .then((res) => { setProjectData(dispatch, res.data) })
+      .catch(err => {
+        // eslint-disable-next-line
+        console.log(err)
+      });
+  }, []);
+
+  const handleModal = () => {
+    setModalStatus(true);
+  };
+
+  const handleClose = () => {
+    setModalStatus(false);
+    setProjectTitle("");
+    setProjectDescription("");
+    setAth("");
+  }
+
+  const saveData = () => {
+    const projectData = {
+      title: projectTitle,
+      description: projectDescription,
+      ath: athValue
+    }
+    axios
+      .post("/projects/register", projectData)
+      .then(() => { handleClose(); })
+      .catch(err => {
+        // eslint-disable-next-line
+        console.log(err)
+      });
+  }
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <ButtonPosition>
+        <MDButton color="primary" startIcon={<Icon>add</Icon>} onClick={() => { handleModal() }}>Add Project</MDButton>
+      </ButtonPosition>
       <MDBox pt={6} pb={3}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
@@ -52,6 +116,52 @@ function Tables() {
           </Grid>
         </Grid>
       </MDBox>
+      <Dialog open={openModal} onClose={() => { handleClose() }} maxWidth="md">
+        <DialogTitle>ADD PROJECT</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            PLEASE ADD PROJECT NAME AND DESCRIPTION HERE.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="project_name"
+            label="Name of Project"
+            type="text"
+            fullWidth
+            variant="standard"
+            placeholder="Input Title"
+            value={projectTitle}
+            onChange={(e) => { setProjectTitle(e.target.value) }}
+          />
+          <TextField
+            id="project_description"
+            label="Project Description"
+            multiline
+            rows={4}
+            fullWidth
+            variant="standard"
+            placeholder="Input Description"
+            value={projectDescription}
+            onChange={(e) => { setProjectDescription(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="ath"
+            label="ATH"
+            type="text"
+            fullWidth
+            variant="standard"
+            placeholder="ATH"
+            value={athValue}
+            onChange={(e) => { setAth(e.target.value) }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <MDButton color="error" onClick={() => { handleClose() }}>Cancel</MDButton>
+          <MDButton color="success" onClick={() => { saveData() }}>Success</MDButton>
+        </DialogActions>
+      </Dialog>
       <Footer />
     </DashboardLayout>
   );

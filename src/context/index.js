@@ -59,6 +59,9 @@ function reducer(state, action) {
     case "CURRENT_WITHDRAWN_TOKEN": {
       return {...state, currentWithdrawnToken: action.value }
     }
+    case "PROJECT_DATA": {
+      return {...state, projectData: action.value}
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -83,6 +86,7 @@ function MaterialUIControllerProvider({ children }) {
     loading: false,
     openModal: false,
     currentWithdrawnToken: "",
+    projectData: [],
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -124,6 +128,7 @@ const setChainId = (dispatch, value) => dispatch({ type: "CHAINID", value });
 const setLoading = (dispatch, value) => dispatch({ type: "LOADING", value });
 const setOpenModal = (dispatch, value) => dispatch({ type: "MODAL_STATUS", value });
 const setCurrentWithdrawnToken = (dispatch, value) => dispatch({ type: "CURRENT_WITHDRAWN_TOKEN", value });
+const setProjectData = (dispatch, value) => dispatch({ type: "PROJECT_DATA", value });
 
 export {
   MaterialUIControllerProvider,
@@ -144,4 +149,5 @@ export {
   setLoading,
   setOpenModal,
   setCurrentWithdrawnToken,
+  setProjectData,
 };

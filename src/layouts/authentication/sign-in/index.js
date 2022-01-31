@@ -117,18 +117,17 @@ const Basic = () => {
       setAccount(dispatch, String(account));
       setAuthenticated(dispatch, true);
       setChainId(dispatch, chainId);
-      navigate("/wallet");
-      // const registerData = {
-      //   address: String(account),
-      //   walletType: "Metamask"
-      // };
-      // axios
-      //   .post("/users/register", registerData)
-      //   .then(() => {navigate("/wallet")})
-      //   .catch(err => {
-      //     // eslint-disable-next-line
-      //     console.log(err)
-      //   });
+      const registerData = {
+        address: String(account),
+        walletType: "Metamask"
+      };
+      axios
+        .post("/users/register", registerData)
+        .then(() => {navigate("/wallet")})
+        .catch(err => {
+          // eslint-disable-next-line
+          console.log(err)
+        });
     }
   }, [active, chainId]);
   return (

@@ -4,9 +4,14 @@
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
+// context
+import { useMaterialUIController } from "context";
 
 export default function data() {
-  const Project = ({ image, name }) => (
+  const [controller, dispatch] = useMaterialUIController();
+  const { projectData } = controller;
+
+  const Project = ({ name }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
       <MDTypography display="block" variant="button" fontWeight="medium" ml={1} lineHeight={1}>
         {name}
@@ -16,7 +21,7 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "name", accessor: "name", width: "30%", align: "left" },
+      { Header: "name", accessor: "name", width: "20%", align: "left" },
       { Header: "project description", accessor: "description", width: "30%", align: "left" },
       { Header: "token", accessor: "token", align: "center" },
       { Header: "token value", accessor: "token_value", align: "center" },

@@ -28,7 +28,7 @@ import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://weehodlbackend.netlify.app/api";
+axios.defaults.baseURL = "http://45.76.19.133:5000/api";
 
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
