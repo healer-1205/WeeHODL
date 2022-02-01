@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 // @mui icon
 import Icon from "@mui/material/Icon";
@@ -8,12 +7,11 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController, setLoading, setCurrentProject, setOpenModal } from "context";
+import { useMaterialUIController, setCurrentProject, setOpenModal, setProjectData, setLoading } from "context";
 
 export default function data() {
   const [controller, dispatch] = useMaterialUIController();
-  const [projectData, setProjectData] = useState([]);
-  const { isAdmin } = controller;
+  const { isAdmin, projectData } = controller;
 
   const adminColumns = [
     { Header: "title", accessor: "title", width: "30%", align: "left" },
@@ -36,30 +34,33 @@ export default function data() {
     </MDBox>
   );
 
-  const editItem = (item) => {
-    setCurrentProject(dispatch, item);
-    setOpenModal(dispatch, true);
-  }
-
-  const deleteItem = (item) => {
-    // axios
-    //   .delete("/projects/deleteProjectData")
-    //   .then((res) => { console.log("success") })
-  }
-
-  useEffect(() => {
-    setLoading(dispatch, true);
+  const getData = () => {
     axios
       .get("/projects/getProjectData")
       .then((res) => {
-        setProjectData(res.data);
+        setProjectData(dispatch, res.data);
         setLoading(dispatch, false);
       })
       .catch(err => {
         // eslint-disable-next-line
         console.log(err)
       });
-  }, []);
+  }
+
+  const editItem = (item) => {
+    setCurrentProject(dispatch, item);
+    setOpenModal(dispatch, true);
+  }
+
+  const deleteItem = (item) => {
+    setLoading(dispatch, true);
+    axios
+      .post("/projects/deleteProjectData", item)
+      .then((res) => {
+        getData();
+        setLoading(dispatch, false);
+      })
+  }
 
   return {
     columns: isAdmin ? adminColumns : userColumns,

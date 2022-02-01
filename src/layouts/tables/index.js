@@ -29,7 +29,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // context
-import { useMaterialUIController, setOpenModal } from "context";
+import { useMaterialUIController, setOpenModal, setLoading, setProjectData } from "context";
 
 const ButtonPosition = styled.div`
   display: flex;
@@ -56,6 +56,19 @@ function Tables() {
     setAth("");
   }
 
+  const getData = () => {
+    axios
+      .get("/projects/getProjectData")
+      .then((res) => {
+        setProjectData(dispatch, res.data);
+        setLoading(dispatch, false);
+      })
+      .catch(err => {
+        // eslint-disable-next-line
+        console.log(err)
+      });
+  }
+
   const saveData = () => {
     const projectData = {
       title: projectTitle,
@@ -65,6 +78,7 @@ function Tables() {
     axios
       .post("/projects/register", projectData)
       .then(() => {
+        getData();
         handleClose();
       })
       .catch(err => {
@@ -73,13 +87,18 @@ function Tables() {
       });
   }
 
+  useEffect(() => {
+    setLoading(dispatch, true);
+    getData();
+  }, []);
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      {isAdmin && 
-      <ButtonPosition>
-        <MDButton color="primary" startIcon={<Icon>add</Icon>} onClick={() => { handleModal() }}>Add Project</MDButton>
-      </ButtonPosition>}
+      {isAdmin &&
+        <ButtonPosition>
+          <MDButton color="primary" startIcon={<Icon>add</Icon>} onClick={() => { handleModal() }}>Add Project</MDButton>
+        </ButtonPosition>}
       {loading ?
         <Box sx={{ display: 'flex', justifyContent: 'center', position: "absolute", top: "250px", right: "45%", zIndex: "1" }}>
           <CircularProgress color="info" size={100} />
@@ -130,7 +149,7 @@ function Tables() {
             fullWidth
             variant="standard"
             placeholder="Input Title"
-            value={projectTitle}
+            defaultValue={projectTitle}
             onChange={(e) => { setProjectTitle(e.target.value) }}
           />
           <TextField

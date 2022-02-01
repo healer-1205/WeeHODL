@@ -65,6 +65,9 @@ function reducer(state, action) {
     case "IS_ADMIN": {
       return {...state, isAdmin: action.value }
     }
+    case "PROJECTS": {
+      return {...state, projectData: action.value}
+    }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
     }
@@ -91,6 +94,7 @@ function MaterialUIControllerProvider({ children }) {
     currentWithdrawnToken: "",
     currentProject: {},
     isAdmin: false,
+    projectData: [],
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -134,6 +138,7 @@ const setOpenModal = (dispatch, value) => dispatch({ type: "MODAL_STATUS", value
 const setCurrentWithdrawnToken = (dispatch, value) => dispatch({ type: "CURRENT_WITHDRAWN_TOKEN", value });
 const setCurrentProject = (dispatch, value) => dispatch({ type: "CURRENT_PROJECT", value });
 const setIsAdmin = (dispatch, value) => dispatch({ type: "IS_ADMIN", value });
+const setProjectData = (dispatch, value) => dispatch({ type: "PROJECTS", value });
 
 export {
   MaterialUIControllerProvider,
@@ -156,4 +161,5 @@ export {
   setCurrentWithdrawnToken,
   setCurrentProject,
   setIsAdmin,
+  setProjectData,
 };
