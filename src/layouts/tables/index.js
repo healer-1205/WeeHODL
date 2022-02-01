@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -39,6 +39,7 @@ const ButtonPosition = styled.div`
 function Tables() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
   const [openModal, setModalStatus] = useState(false);
+
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [athValue, setAth] = useState("");
@@ -64,7 +65,9 @@ function Tables() {
     }
     axios
       .post("/projects/register", projectData)
-      .then(() => { handleClose(); })
+      .then(() => {
+        handleClose();
+      })
       .catch(err => {
         // eslint-disable-next-line
         console.log(err)
@@ -155,7 +158,7 @@ function Tables() {
         </DialogContent>
         <DialogActions>
           <MDButton color="error" onClick={() => { handleClose() }}>Cancel</MDButton>
-          <MDButton color="success" onClick={() => { saveData() }}>Success</MDButton>
+          <MDButton color="success" onClick={() => { saveData() }}>Save</MDButton>
         </DialogActions>
       </Dialog>
       <Footer />
