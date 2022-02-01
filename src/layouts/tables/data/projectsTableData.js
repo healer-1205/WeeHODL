@@ -8,11 +8,25 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController, setLoading, setCurrentProject } from "context";
+import { useMaterialUIController, setLoading, setCurrentProject, setOpenModal } from "context";
 
 export default function data() {
   const [controller, dispatch] = useMaterialUIController();
   const [projectData, setProjectData] = useState([]);
+  const { isAdmin } = controller;
+
+  const adminColumns = [
+    { Header: "title", accessor: "title", width: "30%", align: "left" },
+    { Header: "project description", accessor: "description", align: "left" },
+    { Header: "ath", accessor: "ath", align: "center" },
+    { Header: "action", accessor: "action", align: "center" },
+  ];
+
+  const userColumns = [
+    { Header: "title", accessor: "title", width: "30%", align: "left" },
+    { Header: "project description", accessor: "description", align: "left" },
+    { Header: "ath", accessor: "ath", align: "center" },
+  ]
 
   const Project = ({ title }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -24,6 +38,7 @@ export default function data() {
 
   const editItem = (item) => {
     setCurrentProject(dispatch, item);
+    setOpenModal(dispatch, true);
   }
 
   const deleteItem = (item) => {
@@ -47,14 +62,9 @@ export default function data() {
   }, []);
 
   return {
-    columns: [
-      { Header: "title", accessor: "title", width: "30%", align: "left" },
-      { Header: "project description", accessor: "description", align: "left" },
-      { Header: "ath", accessor: "ath", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
-    ],
+    columns: isAdmin ? adminColumns : userColumns,
 
-    rows: projectData === undefined ? [] : projectData.map(item => ({
+    rows: isAdmin ? projectData.map(item => ({
       title: <Project title={item.title} />,
       description: (
         <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
@@ -74,6 +84,18 @@ export default function data() {
           <MDButton variant="text" color="primary" onClick={() => { deleteItem(item) }}>
             <Icon>delete</Icon>&nbsp;Delete
           </MDButton>
+        </MDTypography>
+      ),
+    })) : projectData.map(item => ({
+      title: <Project title={item.title} />,
+      description: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          {item.description}
+        </MDTypography>
+      ),
+      ath: (
+        <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          {item.ath}
         </MDTypography>
       ),
     })),

@@ -22,7 +22,7 @@ import WalletConnectImg from "assets/images/wallet_connect.svg";
 import TrustWalletImg from "assets/images/trustWallet.svg";
 import SolflareWalletImg from "assets/images/solflare.png";
 // import context
-import { useMaterialUIController, setAuthenticated, setAccount, setChainId } from "context";
+import { useMaterialUIController, setAuthenticated, setAccount, setChainId, setIsAdmin } from "context";
 import {
   injected,
   walletconnect
@@ -65,7 +65,7 @@ const Basic = () => {
         window.solflare.connect();
       }
       window.solflare.on("connect", async () => {
-        const  connection = new web3.Connection(
+        const connection = new web3.Connection(
           web3.clusterApiUrl('mainnet-beta'),
           'confirmed',
         );
@@ -123,7 +123,14 @@ const Basic = () => {
       };
       axios
         .post("/users/register", registerData)
-        .then(() => {navigate("/wallet")})
+        .then((res) => {
+          if (res.data.isAdmin) {
+            setIsAdmin(dispatch, true);
+          } else {
+            setIsAdmin(dispatch, false);
+          }
+          navigate("/wallet")
+        })
         .catch(err => {
           // eslint-disable-next-line
           console.log(err)

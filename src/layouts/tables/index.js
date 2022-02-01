@@ -29,7 +29,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // context
-import { useMaterialUIController } from "context";
+import { useMaterialUIController, setOpenModal } from "context";
 
 const ButtonPosition = styled.div`
   display: flex;
@@ -38,20 +38,19 @@ const ButtonPosition = styled.div`
 
 function Tables() {
   const { columns: pColumns, rows: pRows } = projectsTableData();
-  const [openModal, setModalStatus] = useState(false);
 
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [athValue, setAth] = useState("");
   const [controller, dispatch] = useMaterialUIController();
-  const { loading } = controller;
+  const { loading, openModal, currentProject, isAdmin } = controller;
 
   const handleModal = () => {
-    setModalStatus(true);
+    setOpenModal(dispatch, true);
   };
 
   const handleClose = () => {
-    setModalStatus(false);
+    setOpenModal(dispatch, false);
     setProjectTitle("");
     setProjectDescription("");
     setAth("");
@@ -77,9 +76,10 @@ function Tables() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      {isAdmin && 
       <ButtonPosition>
         <MDButton color="primary" startIcon={<Icon>add</Icon>} onClick={() => { handleModal() }}>Add Project</MDButton>
-      </ButtonPosition>
+      </ButtonPosition>}
       {loading ?
         <Box sx={{ display: 'flex', justifyContent: 'center', position: "absolute", top: "250px", right: "45%", zIndex: "1" }}>
           <CircularProgress color="info" size={100} />
