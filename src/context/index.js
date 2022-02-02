@@ -53,8 +53,11 @@ function reducer(state, action) {
     case "LOADING": {
       return { ...state, loading: action.value }
     }
-    case "MODAL_STATUS": {
+    case "ADD_MODAL": {
       return { ...state, openModal: action.value }
+    }
+    case "WITHDRAW_MODAL": {
+      return {...state, withdrawModal: action.value}
     }
     case "CURRENT_WITHDRAWN_TOKEN": {
       return {...state, currentWithdrawnToken: action.value }
@@ -90,7 +93,8 @@ function MaterialUIControllerProvider({ children }) {
     account: "",
     currentChainId: "",
     loading: false,
-    openModal: false,
+    addModal: false,
+    withdrawModal: false,
     currentWithdrawnToken: "",
     currentProject: {},
     isAdmin: false,
@@ -134,7 +138,8 @@ const setAuthenticated = (dispatch, value) => dispatch({ type: "AUTHENTICATED", 
 const setAccount = (dispatch, value) => dispatch({ type: "ACCOUNT", value });
 const setChainId = (dispatch, value) => dispatch({ type: "CHAINID", value });
 const setLoading = (dispatch, value) => dispatch({ type: "LOADING", value });
-const setOpenModal = (dispatch, value) => dispatch({ type: "MODAL_STATUS", value });
+const setAddModal = (dispatch, value) => dispatch({ type: "ADD_MODAL", value });
+const setWithdrawModal = (dispatch, value) => dispatch({ type: "WITHDRAW_MODAL", value });
 const setCurrentWithdrawnToken = (dispatch, value) => dispatch({ type: "CURRENT_WITHDRAWN_TOKEN", value });
 const setCurrentProject = (dispatch, value) => dispatch({ type: "CURRENT_PROJECT", value });
 const setIsAdmin = (dispatch, value) => dispatch({ type: "IS_ADMIN", value });
@@ -157,9 +162,10 @@ export {
   setAccount,
   setChainId,
   setLoading,
-  setOpenModal,
+  setAddModal,
   setCurrentWithdrawnToken,
   setCurrentProject,
   setIsAdmin,
   setProjectData,
+  setWithdrawModal,
 };

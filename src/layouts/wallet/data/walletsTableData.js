@@ -7,9 +7,8 @@ import Icon from "@mui/material/Icon";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDAvatar from "components/MDAvatar";
-import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController, setLoading, setOpenModal, setCurrentWithdrawnToken } from "context";
+import { useMaterialUIController, setLoading } from "context";
 // mainnets
 import mainnets from "../../../constants/mainnets";
 
@@ -32,12 +31,6 @@ export default function data() {
 
   // address: account address, type: mainnet type
   const getURL = (address, type) => `https://api.debank.com/token/balance_list?user_addr=${address}&is_all=false&chain=${type}`;
-
-  // handel Modal Status
-  const handleModal = (item) => {
-    setOpenModal(dispatch, true);
-    setCurrentWithdrawnToken(dispatch, item);
-  }
 
   useEffect(() => {
     let apiCallResult;
@@ -75,13 +68,6 @@ export default function data() {
                   Math.round((Math.round(item.price * 100) / 100) * (Math.round((item.balance * (10 ** -18)) * 10000) / 10000))}
               </MDTypography>
             ),
-            action: (
-              <MDTypography color="text">
-                <MDButton variant="text" color="success" onClick={()=>{handleModal(item)}}>
-                  <Icon>paid</Icon>&nbsp;Withdraw
-                </MDButton>
-              </MDTypography>
-            ),
           }]
           return true;
         })
@@ -105,7 +91,6 @@ export default function data() {
       { Header: "price", accessor: "price", align: "left" },
       { Header: "balance", accessor: "balance", align: "center" },
       { Header: "value", accessor: "value", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
     ],
 
     rows: walletData === undefined ? [] : walletData,

@@ -29,7 +29,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // context
-import { useMaterialUIController, setOpenModal, setLoading, setProjectData } from "context";
+import { useMaterialUIController, setAddModal, setLoading, setProjectData } from "context";
 
 const ButtonPosition = styled.div`
   display: flex;
@@ -46,11 +46,11 @@ function Tables() {
   const { loading, openModal, currentProject, isAdmin } = controller;
 
   const handleModal = () => {
-    setOpenModal(dispatch, true);
+    setAddModal(dispatch, true);
   };
 
   const handleClose = () => {
-    setOpenModal(dispatch, false);
+    setAddModal(dispatch, false);
     setProjectTitle("");
     setProjectDescription("");
     setAth("");
@@ -134,6 +134,7 @@ function Tables() {
             </Grid>
           </Grid>
         </MDBox>}
+        {/* add dialog */}
       <Dialog open={openModal} onClose={() => { handleClose() }} maxWidth="md">
         <DialogTitle>ADD PROJECT</DialogTitle>
         <DialogContent>
@@ -180,6 +181,7 @@ function Tables() {
           <MDButton color="success" onClick={() => { saveData() }}>Save</MDButton>
         </DialogActions>
       </Dialog>
+      {/* withdraw dialog */}
       <Footer />
     </DashboardLayout>
   );

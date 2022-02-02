@@ -15,7 +15,7 @@ import DataTable from "examples/Tables/DataTable";
 import walletsTableData from "layouts/wallet/data/walletsTableData";
 
 // context
-import { useMaterialUIController, setOpenModal } from "context";
+import { useMaterialUIController, setAddModal } from "context";
 
 // for modal
 import TextField from '@mui/material/TextField';
@@ -35,7 +35,7 @@ const Wallet = () => {
   const [withdrawnTokenNumbers, setWithdrawnTokenNumbers] = useState(0);
 
   const handleClose = () => {
-    setOpenModal(dispatch, false);
+    setAddModal(dispatch, false);
     setWithdrawnTokenNumbers(0);
   }
 
