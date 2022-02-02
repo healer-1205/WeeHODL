@@ -29,7 +29,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // context
-import { useMaterialUIController, setAddModal, setLoading, setProjectData } from "context";
+import { useMaterialUIController, setAddModal, setLoading, setProjectData, setDeleteModal } from "context";
 
 const ButtonPosition = styled.div`
   display: flex;
@@ -43,7 +43,7 @@ function Tables() {
   const [projectDescription, setProjectDescription] = useState("");
   const [athValue, setAth] = useState("");
   const [controller, dispatch] = useMaterialUIController();
-  const { loading, openModal, currentProject, isAdmin } = controller;
+  const { loading, openModal, currentProject, isAdmin, deleteModal } = controller;
 
   const handleModal = () => {
     setAddModal(dispatch, true);
@@ -91,6 +91,21 @@ function Tables() {
     setLoading(dispatch, true);
     getData();
   }, []);
+
+  const handleDeleteModalClose = () => {
+    setDeleteModal(dispatch, false);
+  }
+
+  const deleteItem = () => {
+    setLoading(dispatch, true);
+    axios
+      .post("/projects/deleteProjectData", currentProject)
+      .then((res) => {
+        getData();
+        setLoading(dispatch, false);
+        setDeleteModal(dispatch, false);
+      })
+  }
 
   return (
     <DashboardLayout>
@@ -179,6 +194,21 @@ function Tables() {
         <DialogActions>
           <MDButton color="error" onClick={() => { handleClose() }}>Cancel</MDButton>
           <MDButton color="success" onClick={() => { saveData() }}>Save</MDButton>
+        </DialogActions>
+      </Dialog>
+      {/* delete dialog */}
+      <Dialog
+        open={deleteModal}
+        onClose={handleDeleteModalClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          Confirm Delete this project?
+        </DialogTitle>
+        <DialogActions>
+          <MDButton onClick={handleDeleteModalClose} color="primary">Cancel</MDButton>
+          <MDButton onClick={deleteItem} autoFocus color="success">OK</MDButton>
         </DialogActions>
       </Dialog>
       {/* withdraw dialog */}

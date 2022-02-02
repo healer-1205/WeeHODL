@@ -59,6 +59,9 @@ function reducer(state, action) {
     case "WITHDRAW_MODAL": {
       return {...state, withdrawModal: action.value}
     }
+    case "DELETE_MODAL": {
+      return {...state, deleteModal: action.value}
+    }
     case "CURRENT_WITHDRAWN_TOKEN": {
       return {...state, currentWithdrawnToken: action.value }
     }
@@ -94,6 +97,7 @@ function MaterialUIControllerProvider({ children }) {
     currentChainId: "",
     loading: false,
     addModal: false,
+    deleteModal: false,
     withdrawModal: false,
     currentWithdrawnToken: "",
     currentProject: {},
@@ -140,6 +144,7 @@ const setChainId = (dispatch, value) => dispatch({ type: "CHAINID", value });
 const setLoading = (dispatch, value) => dispatch({ type: "LOADING", value });
 const setAddModal = (dispatch, value) => dispatch({ type: "ADD_MODAL", value });
 const setWithdrawModal = (dispatch, value) => dispatch({ type: "WITHDRAW_MODAL", value });
+const setDeleteModal = (dispatch, value) => dispatch({ type: "DELETE_MODAL", value });
 const setCurrentWithdrawnToken = (dispatch, value) => dispatch({ type: "CURRENT_WITHDRAWN_TOKEN", value });
 const setCurrentProject = (dispatch, value) => dispatch({ type: "CURRENT_PROJECT", value });
 const setIsAdmin = (dispatch, value) => dispatch({ type: "IS_ADMIN", value });
@@ -168,4 +173,5 @@ export {
   setIsAdmin,
   setProjectData,
   setWithdrawModal,
+  setDeleteModal,
 };

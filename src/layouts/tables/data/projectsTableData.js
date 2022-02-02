@@ -7,7 +7,15 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 // context
-import { useMaterialUIController, setCurrentProject, setAddModal, setProjectData, setLoading, setCurrentWithdrawnToken, setWithdrawModal } from "context";
+import {
+  useMaterialUIController,
+  setCurrentProject,
+  setAddModal,
+  setProjectData,
+  setLoading,
+  setCurrentWithdrawnToken,
+  setWithdrawModal,
+  setDeleteModal } from "context";
 
 export default function data() {
   const [controller, dispatch] = useMaterialUIController();
@@ -40,13 +48,8 @@ export default function data() {
   }
 
   const deleteItem = (item) => {
-    setLoading(dispatch, true);
-    axios
-      .post("/projects/deleteProjectData", item)
-      .then((res) => {
-        getData();
-        setLoading(dispatch, false);
-      })
+    setDeleteModal(dispatch, true);
+    setCurrentProject(dispatch, item);
   }
 
   // handel Modal Status
