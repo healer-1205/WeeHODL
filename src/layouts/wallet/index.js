@@ -2,8 +2,7 @@ import React from "react";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import { CircularProgress } from '@mui/material'
-import Box from '@mui/material/Box';
+import { CircularProgress, Box } from '@mui/material'
 
 // Material React example components
 import MDTypography from "components/MDTypography";

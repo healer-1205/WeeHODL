@@ -1,7 +1,3 @@
-/**
-
-*/
-
 // react-routers components
 import { Link } from "react-router-dom";
 
