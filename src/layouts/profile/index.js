@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 // @mui material components
-import { TextField, Grid, Divider, CircularProgress, Box } from "@mui/material";
+import { TextField, Grid, CircularProgress, Box } from "@mui/material";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDButton from "components/MDButton";
@@ -10,14 +10,16 @@ import MDButton from "components/MDButton";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ProfilesList from "examples/Lists/ProfilesList";
 
 // Overview page components
 import Header from "layouts/profile/components/Header";
 // context
 import { useMaterialUIController, setLoading } from "context";
-// Data
-import profilesListData from "layouts/profile/data/profilesListData";
+
+const ButtonPosition = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 function Overview() {
 
@@ -26,29 +28,46 @@ function Overview() {
   const [twitterName, setTwitter] = useState("");
 
   const [controller, dispatch] = useMaterialUIController();
-  const { loading } = controller;
+  const { loading, account } = controller;
 
-  const ButtonPosition = styled.div`
-    display: flex;
-    justify-content: flex-end;
-  `;
+  useEffect(() => {
+    setLoading(dispatch, true);
+    axios
+      .get("/users/getSocials", {
+        params: {
+          walletAddress: account
+        }
+      })
+      .then((res) => {
+        if (res.data.email !== undefined || res.data.telegram !== undefined || res.data.twitter !== undefined) {
+          setEmail(res.data.email);
+          setTelegram(res.data.telegram);
+          setTwitter(res.data.twitter)
+        }
+        setLoading(dispatch, false);
+      });
+  }, []);
 
   const submit = () => {
     setLoading(dispatch, true);
-    // const data = {
-    //   email: emailAddress,
-    //   telegram: telegramName,
-    //   twitter: twitterName,
-    // }
-    // axios
-    //   .post("/users/registerSocials", data)
-    //   .then((res) => {
-    //     setLoading(dispatch, false);
-    //   })
-    //   .catch((err) => {
-    //     // eslint-disable-next-line
-    //     console.log(err);
-    //   })
+    const data = {
+      email: emailAddress,
+      telegram: telegramName,
+      twitter: twitterName,
+      walletAddress: account,
+    }
+    axios
+      .post("/users/registerSocials", data)
+      .then((res) => {
+        setEmail(res.data.email);
+        setTelegram(res.data.telegram);
+        setTwitter(res.data.twitter)
+        setLoading(dispatch, false);
+      })
+      .catch((err) => {
+        // eslint-disable-next-line
+        console.log(err);
+      })
   };
 
   return (
@@ -66,6 +85,17 @@ function Overview() {
               <Grid container spacing={1}>
                 <Grid item xs={12} md={3} xl={3} />
                 <Grid item xs={12} md={6} xl={6} sx={{ display: "flex", flexDirection: "column" }}>
+                  <TextField
+                    margin="dense"
+                    id="walletAddress"
+                    label="Wallet Address"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                    value={account}
+                    sx={{ marginTop: "20px" }}
+                    disabled
+                  />
                   <TextField
                     autoFocus
                     margin="dense"
@@ -104,7 +134,7 @@ function Overview() {
                     sx={{ marginTop: "20px" }}
                   />
                   <ButtonPosition>
-                    <MDButton color="success" sx={{marginTop: "10px"}} onClick={() => { submit() }}>SUBMIT</MDButton>
+                    <MDButton color="success" sx={{ marginTop: "10px" }} onClick={() => { submit() }}>SUBMIT</MDButton>
                   </ButtonPosition>
                 </Grid>
                 <Grid item xs={12} md={3} xl={3} />
