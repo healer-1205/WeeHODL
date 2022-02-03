@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -15,29 +15,12 @@ import DataTable from "examples/Tables/DataTable";
 import walletsTableData from "layouts/wallet/data/walletsTableData";
 
 // context
-import { useMaterialUIController, setAddModal } from "context";
-
-// for modal
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import MDButton from "components/MDButton";
-import AdminWalletAddress from "constants/admin-wallet-address";
+import { useMaterialUIController } from "context";
 
 const Wallet = () => {
   const { columns: pColumns, rows: pRows } = walletsTableData();
   const [controller, dispatch] = useMaterialUIController();
-  const { loading, openModal, account, currentWithdrawnToken } = controller;
-
-  const [withdrawnTokenNumbers, setWithdrawnTokenNumbers] = useState(0);
-
-  const handleClose = () => {
-    setAddModal(dispatch, false);
-    setWithdrawnTokenNumbers(0);
-  }
+  const { loading } = controller;
 
   return (
     <DashboardLayout style={{ position: "relative" }}>
@@ -81,42 +64,6 @@ const Wallet = () => {
           <Footer />
         </>
       }
-      <Dialog open={openModal} onClose={() => { handleClose() }}>
-        <DialogTitle>WITHDRAW</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            From:&nbsp;&nbsp;{account}
-          </DialogContentText>
-          <DialogContentText>
-            To:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{AdminWalletAddress}
-          </DialogContentText>
-          <DialogContentText>
-            Token Name:&nbsp;&nbsp;{currentWithdrawnToken.name}
-          </DialogContentText>
-          <DialogContentText>
-            Current Balance:&nbsp;&nbsp;{currentWithdrawnToken.id === "0xdac17f958d2ee523a2206206994597c13d831ec7" ?
-              Math.round((currentWithdrawnToken.balance * (10 ** -6)) * 10000) / 10000 :
-              Math.round((currentWithdrawnToken.balance * (10 ** -18)) * 10000) / 10000}
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="token_number"
-            label="Number Of Tokens"
-            type="number"
-            fullWidth
-            variant="standard"
-            value={withdrawnTokenNumbers}
-            onChange={(e) => { setWithdrawnTokenNumbers(e.target.value) }}
-            error={withdrawnTokenNumbers >= currentWithdrawnToken.balance * (10 ** -18)}
-            helperText={withdrawnTokenNumbers >= currentWithdrawnToken.balance * (10 ** -18) ? "You don't have enough token to Withdraw this amount." : " "}
-          />
-        </DialogContent>
-        <DialogActions>
-          <MDButton color="error" onClick={() => { handleClose() }}>Cancel</MDButton>
-          <MDButton color="success" onClick={() => { handleClose() }}>Confirm</MDButton>
-        </DialogActions>
-      </Dialog>
     </DashboardLayout>
   );
 }

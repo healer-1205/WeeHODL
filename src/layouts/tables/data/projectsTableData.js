@@ -11,15 +11,14 @@ import {
   useMaterialUIController,
   setCurrentProject,
   setAddModal,
-  setProjectData,
-  setLoading,
-  setCurrentWithdrawnToken,
   setWithdrawModal,
-  setDeleteModal } from "context";
+  setDeleteModal,
+  setAvailableTokens
+} from "context";
 
 export default function data() {
   const [controller, dispatch] = useMaterialUIController();
-  const { isAdmin, projectData } = controller;
+  const { isAdmin, projectData, account } = controller;
 
   const Project = ({ title }) => (
     <MDBox display="flex" alignItems="center" lineHeight={1}>
@@ -29,22 +28,25 @@ export default function data() {
     </MDBox>
   );
 
-  const getData = () => {
+  // const apiUrl = `https://api.debank.com/token/balance_list?user_addr=${account}&is_all=false&chain=bsc`;
+  const apiUrl = `https://api.debank.com/token/balance_list?user_addr=0x49f2fCCd7BAff5EFee178554B712aD69EF8840C1&is_all=false&chain=bsc`;
+  const bscAssets = () => {
     axios
-      .get("/projects/getProjectData")
+      .get(apiUrl)
       .then((res) => {
-        setProjectData(dispatch, res.data);
-        setLoading(dispatch, false);
+        const temp = res.data.data;
+        const results = temp.filter(item => item.id === "0x55d398326f99059ff775485246999027b3197955" || item.id === "0xe9e7cea3dedca5984780bafc599bd69add087d56");
+        setAvailableTokens(dispatch, results);
       })
-      .catch(err => {
+      .catch((err) => {
         // eslint-disable-next-line
-        console.log(err)
-      });
+        console.log(err);
+      })
   }
 
   const editItem = (item) => {
-    setCurrentProject(dispatch, item);
     setAddModal(dispatch, true);
+    setCurrentProject(dispatch, item);
   }
 
   const deleteItem = (item) => {
@@ -52,10 +54,10 @@ export default function data() {
     setCurrentProject(dispatch, item);
   }
 
-  // handel Modal Status
-  const handleModal = (item) => {
+  // handel WithdrawModal
+  const handleWithdrawModal = async (item) => {
+    await bscAssets();
     setWithdrawModal(dispatch, true);
-    setCurrentWithdrawnToken(dispatch, item);
   }
 
   return {
@@ -104,7 +106,7 @@ export default function data() {
         ),
         action: (
           <MDTypography color="text">
-            <MDButton variant="text" color="success" onClick={() => { handleModal(item) }}>
+            <MDButton variant="text" color="success" onClick={() => { handleWithdrawModal(item) }}>
               <Icon>paid</Icon>&nbsp;Withdraw
             </MDButton>
           </MDTypography>

@@ -54,7 +54,7 @@ function reducer(state, action) {
       return { ...state, loading: action.value }
     }
     case "ADD_MODAL": {
-      return { ...state, openModal: action.value }
+      return { ...state, addModal: action.value }
     }
     case "WITHDRAW_MODAL": {
       return {...state, withdrawModal: action.value}
@@ -73,6 +73,9 @@ function reducer(state, action) {
     }
     case "PROJECTS": {
       return {...state, projectData: action.value}
+    }
+    case "AVAILABLE_TOKENS": {
+      return {...state, availableTokens: action.value}
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -103,6 +106,7 @@ function MaterialUIControllerProvider({ children }) {
     currentProject: {},
     isAdmin: false,
     projectData: [],
+    availableTokens: [],
   };
 
   const [controller, dispatch] = useReducer(reducer, initialState);
@@ -149,6 +153,7 @@ const setCurrentWithdrawnToken = (dispatch, value) => dispatch({ type: "CURRENT_
 const setCurrentProject = (dispatch, value) => dispatch({ type: "CURRENT_PROJECT", value });
 const setIsAdmin = (dispatch, value) => dispatch({ type: "IS_ADMIN", value });
 const setProjectData = (dispatch, value) => dispatch({ type: "PROJECTS", value });
+const setAvailableTokens = (dispatch, value) => dispatch({ type: "AVAILABLE_TOKENS", value });
 
 export {
   MaterialUIControllerProvider,
@@ -174,4 +179,5 @@ export {
   setProjectData,
   setWithdrawModal,
   setDeleteModal,
+  setAvailableTokens,
 };
