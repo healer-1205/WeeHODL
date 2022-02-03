@@ -41,7 +41,7 @@ function Overview() {
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox mb={2} />
-      {/* <Header>
+      <Header>
         <MDBox mt={5} mb={3}>
           <Grid container spacing={1}>
             <Grid item xs={12} md={6} xl={4}>
@@ -179,7 +179,7 @@ function Overview() {
             </Grid>
           </Grid>
         </MDBox>
-      </Header> */}
+      </Header>
       <Footer />
     </DashboardLayout>
   );

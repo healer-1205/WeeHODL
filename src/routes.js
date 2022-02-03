@@ -40,6 +40,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Profile",
+    key: "profile",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/profile",
+    component: <PrivateRoute><Profile /></PrivateRoute>,
+  },
+  {
+    type: "collapse",
     name: "Project List",
     key: "tables",
     icon: <Icon fontSize="small">table_view</Icon>,
@@ -61,14 +69,6 @@ const routes = [
     icon: <Icon fontSize="small">gesture</Icon>,
     route: "/notifications",
     component: <PrivateRoute><Notifications /></PrivateRoute>,
-  },
-  {
-    type: "collapse",
-    name: "Contact to Admin",
-    key: "profile",
-    icon: <Icon fontSize="small">person</Icon>,
-    route: "/profile",
-    component: <PrivateRoute><Profile /></PrivateRoute>,
   },
 ];
 
