@@ -32,7 +32,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 // context
-import { useMaterialUIController, setAddModal, setLoading, setProjectData, setDeleteModal, setWithdrawModal } from "context";
+import { useMaterialUIController, setAddModal, setLoading, setProjectData, setDeleteModal, setWithdrawModal, setCurrentProject } from "context";
 import AdminWalletAddress from "constants/admin-wallet-address";
 
 const ButtonPosition = styled.div`
@@ -51,6 +51,14 @@ function Tables() {
   const [withdrawnTokenNumbers, setWithdrawnTokenNumbers] = useState(0);
   const [selectedToken, setSelectedToken] = useState("");
   const [balance, setBalance] = useState("");
+
+  useEffect(() => {
+    if (Object.keys(currentProject).length > 0) {
+      setProjectTitle(currentProject.title);
+      setProjectDescription(currentProject.description);
+      setAth(currentProject.ath);
+    }
+  }, [currentProject])
 
   const handleModal = () => {
     setAddModal(dispatch, true);
@@ -78,6 +86,7 @@ function Tables() {
 
   const saveData = () => {
     const projectData = {
+      id: currentProject._id,
       title: projectTitle,
       description: projectDescription,
       ath: athValue
@@ -86,6 +95,7 @@ function Tables() {
       .post("/projects/register", projectData)
       .then(() => {
         getData();
+        setCurrentProject(dispatch, {})
         handleClose();
       })
       .catch(err => {
@@ -172,7 +182,9 @@ function Tables() {
         </MDBox>}
       {/* add dialog */}
       <Dialog open={addModal} onClose={() => { handleClose() }} maxWidth="md">
-        <DialogTitle>ADD PROJECT</DialogTitle>
+        {Object.keys(currentProject).length > 0 ?
+          <DialogTitle>EDIT PROJECT</DialogTitle> :
+          <DialogTitle>ADD PROJECT</DialogTitle>}
         <DialogContent>
           <DialogContentText>
             PLEASE ADD PROJECT NAME AND DESCRIPTION HERE.
@@ -186,7 +198,7 @@ function Tables() {
             fullWidth
             variant="standard"
             placeholder="Input Title"
-            defaultValue={projectTitle}
+            value={projectTitle}
             onChange={(e) => { setProjectTitle(e.target.value) }}
           />
           <TextField
@@ -227,7 +239,7 @@ function Tables() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          Confirm Delete this project?
+          Delete this project?
         </DialogTitle>
         <DialogActions>
           <MDButton onClick={handleDeleteModalClose} color="primary">Cancel</MDButton>
