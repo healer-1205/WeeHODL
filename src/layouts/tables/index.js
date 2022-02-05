@@ -15,7 +15,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
 } from "@mui/material";
 import styled from "styled-components";
 // Material React components
@@ -31,6 +31,7 @@ import DataTable from "examples/Tables/DataTable";
 
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
+import months from "constants/months";
 // context
 import { useMaterialUIController, setAddModal, setLoading, setProjectData, setDeleteModal, setWithdrawModal, setCurrentProject } from "context";
 import AdminWalletAddress from "constants/admin-wallet-address";
@@ -45,18 +46,69 @@ function Tables() {
 
   const [controller, dispatch] = useMaterialUIController();
   const { loading, addModal, currentProject, isAdmin, deleteModal, withdrawModal, account, availableTokens } = controller;
-  const [projectTitle, setProjectTitle] = useState("");
-  const [projectDescription, setProjectDescription] = useState("");
-  const [athValue, setAth] = useState("");
   const [withdrawnTokenNumbers, setWithdrawnTokenNumbers] = useState(0);
   const [selectedToken, setSelectedToken] = useState("");
   const [balance, setBalance] = useState("");
+  const [projectTitle, setProjectTitle] = useState("");
+  const [projectDescription, setProjectDescription] = useState("");
+  const [athValue, setAth] = useState("");
+  const [prologueData, setPrologueData] = useState("");
+  const [introData, setIntroData] = useState("");
+  const [telegramData, setTelegramData] = useState("");
+  const [discordData, setDiscordData] = useState("");
+  const [instagramData, setInstagramData] = useState("");
+  const [twitterData, setTwitterData] = useState("");
+  const [facebookData, setFacebookData] = useState("");
+  const [youtubeData, setYoutubeData] = useState("");
+  const [redditData, setRedditData] = useState("");
+  const [websiteData, setWebsiteData] = useState("");
+  const [whitePaperData, setWhitePaperData] = useState("");
+  const [lightPaperData, setLightPaperData] = useState("");
+  const [demoVideoData, setDemoVideoData] = useState("");
+  const [cinematicData, setCinematicData] = useState("");
+  const [vrWorldData, setVrWorldData] = useState("");
+  const [distributionTypeData, setDistributionType] = useState("Private");
+  const [distributionData, setDistributionData] = useState("");
+  const [priceData, setPriceData] = useState("");
+  const [publicSalePriceData, setPublicSalePriceData] = useState("");
+  const [imcData, setImcData] = useState("");
+  const [totalSupplyData, setTotalSupplyData] = useState("");
+  const [tgeData, setTgeData] = useState("");
+  const blockChainType = "Binance Smart Chain";
+  const [minData, setMinData] = useState(0);
+  const [maxData, setMaxData] = useState(0);
+  const [feeData, setFeeData] = useState(0);
 
   useEffect(() => {
     if (Object.keys(currentProject).length > 0) {
       setProjectTitle(currentProject.title);
       setProjectDescription(currentProject.description);
       setAth(currentProject.ath);
+      setPrologueData(currentProject.prologue);
+      setIntroData(currentProject.intro);
+      setTelegramData(currentProject.telegram);
+      setDiscordData(currentProject.discord);
+      setInstagramData(currentProject.instagram);
+      setTwitterData(currentProject.twitter);
+      setFacebookData(currentProject.facebook);
+      setYoutubeData(currentProject.youtube);
+      setRedditData(currentProject.reddit);
+      setWebsiteData(currentProject.website);
+      setWhitePaperData(currentProject.whitePaper);
+      setLightPaperData(currentProject.lightPaper);
+      setDemoVideoData(currentProject.demoVideo);
+      setCinematicData(currentProject.cinematic);
+      setVrWorldData(currentProject.vrWorld);
+      setDistributionType(currentProject.distributionType);
+      setDistributionData(currentProject.distribution);
+      setPriceData(currentProject.price);
+      setPublicSalePriceData(currentProject.publicSalePrice);
+      setImcData(currentProject.imc);
+      setTotalSupplyData(currentProject.totalSupply);
+      setTgeData(currentProject.tge);
+      setMinData(currentProject.min);
+      setMaxData(currentProject.max);
+      setFeeData(currentProject.fee);
     }
   }, [currentProject])
 
@@ -89,7 +141,33 @@ function Tables() {
       id: currentProject._id,
       title: projectTitle,
       description: projectDescription,
-      ath: athValue
+      ath: athValue,
+      prologue: prologueData,
+      intro: introData,
+      telegram: telegramData,
+      discord: discordData,
+      instagram: instagramData,
+      twitter: twitterData,
+      facebook: facebookData,
+      youtube: youtubeData,
+      reddit: redditData,
+      website: websiteData,
+      whitePaper: whitePaperData,
+      lightPaper: lightPaperData,
+      demoVideo: demoVideoData,
+      cinematic: cinematicData,
+      vrWorld: vrWorldData,
+      distributionType: distributionTypeData,
+      distribution: distributionData,
+      price: priceData,
+      publicSalePrice: publicSalePriceData,
+      imc: imcData,
+      totalSupply: totalSupplyData,
+      tge: tgeData,
+      blockchain: blockChainType,
+      min: minData,
+      max: maxData,
+      fee: feeData,
     }
     axios
       .post("/projects/register", projectData)
@@ -181,13 +259,13 @@ function Tables() {
           </Grid>
         </MDBox>}
       {/* add dialog */}
-      <Dialog open={addModal} onClose={() => { handleClose() }} maxWidth="md">
+      <Dialog open={addModal} onClose={() => { handleClose() }} maxWidth="lg">
         {Object.keys(currentProject).length > 0 ?
           <DialogTitle>EDIT PROJECT</DialogTitle> :
           <DialogTitle>ADD PROJECT</DialogTitle>}
         <DialogContent>
           <DialogContentText>
-            PLEASE ADD PROJECT NAME AND DESCRIPTION HERE.
+            PLEASE ADD PROJECT DETAIL HERE.
           </DialogContentText>
           <TextField
             autoFocus
@@ -222,6 +300,310 @@ function Tables() {
             placeholder="ATH"
             value={athValue}
             onChange={(e) => { setAth(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="prologue"
+            label="PROLOGUE"
+            type="text"
+            multiline
+            rows={3}
+            fullWidth
+            variant="standard"
+            placeholder="Input Prologue"
+            value={prologueData}
+            onChange={(e) => { setPrologueData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="intro"
+            label="INTRO"
+            type="text"
+            multiline
+            rows={5}
+            fullWidth
+            variant="standard"
+            placeholder="Input Intro"
+            value={introData}
+            onChange={(e) => { setIntroData(e.target.value) }}
+          />
+          <DialogContentText mt={4}>
+            PLEASE ADD SOCIALS AND LINKS HERE.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="telegram"
+            label="Telegram"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Telegram Link"
+            value={telegramData}
+            onChange={(e) => { setTelegramData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="discord"
+            label="Discord"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Discord Link"
+            value={discordData}
+            onChange={(e) => { setDiscordData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="instagram"
+            label="Instagram"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Instagram Link"
+            value={instagramData}
+            onChange={(e) => { setInstagramData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="twitter"
+            label="Twitter"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Twitter Link"
+            value={twitterData}
+            onChange={(e) => { setTwitterData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="facebook"
+            label="Facebook"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Facebook Link"
+            value={facebookData}
+            onChange={(e) => { setFacebookData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="youtube"
+            label="Youtube"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Youtube Link"
+            value={youtubeData}
+            onChange={(e) => { setYoutubeData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="reddit"
+            label="Reddit"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Reddit Link"
+            value={redditData}
+            onChange={(e) => { setRedditData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="website"
+            label="Website"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Website Link"
+            value={websiteData}
+            onChange={(e) => { setWebsiteData(e.target.value) }}
+          />
+          <DialogContentText mt={4}>
+            PLEASE ADD DOCKS HERE.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="whitePaper"
+            label="Whitepaper"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Whitepaper Link"
+            value={whitePaperData}
+            onChange={(e) => { setWhitePaperData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="lightPaper"
+            label="LightPaper"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input LightPaper Link"
+            value={lightPaperData}
+            onChange={(e) => { setLightPaperData(e.target.value) }}
+          />
+          <DialogContentText mt={4}>
+            PLEASE ADD MEDIA HERE.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="demoVideo"
+            label="DemoVideo"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input DemoVideo Link"
+            value={demoVideoData}
+            onChange={(e) => { setDemoVideoData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="cinematic"
+            label="Cinematic Teaser"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input Cinematic Teaser Link"
+            value={cinematicData}
+            onChange={(e) => { setCinematicData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="vrWorld"
+            label="VR world showcase"
+            type="url"
+            fullWidth
+            variant="standard"
+            placeholder="Input VR world showcase Link"
+            value={vrWorldData}
+            onChange={(e) => { setVrWorldData(e.target.value) }}
+          />
+          <DialogContentText mt={4}>
+            PLEASE ADD VESTING DETAILS HERE.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="distribution_type"
+            label="Distribution Type"
+            type="text"
+            fullWidth
+            variant="standard"
+            value={distributionTypeData}
+            disabled
+          />
+          <TextField
+            margin="dense"
+            id="distribution"
+            label="Distribution"
+            type="text"
+            fullWidth
+            variant="standard"
+            placeholder="Input Distribution Detail"
+            value={distributionData}
+            onChange={(e) => { setDistributionData(e.target.value) }}
+          />
+          <DialogContentText mt={4}>
+            PLEASE ADD TOKENOMICS AND PRICE HERE.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="price"
+            label="Our Price  $"
+            type="number"
+            fullWidth
+            variant="standard"
+            placeholder="Input Our Price"
+            value={priceData}
+            onChange={(e) => { setPriceData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="sale_price"
+            label="Public Sale Price  $"
+            type="number"
+            fullWidth
+            variant="standard"
+            placeholder="Input Public Sale Price"
+            value={publicSalePriceData}
+            onChange={(e) => { setPublicSalePriceData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="imc"
+            label="IMC  $"
+            type="number"
+            fullWidth
+            variant="standard"
+            placeholder="Input IMC"
+            value={imcData}
+            onChange={(e) => { setImcData(e.target.value) }}
+          />
+          <TextField
+            margin="dense"
+            id="total_supply"
+            label="Total Supply"
+            type="number"
+            fullWidth
+            variant="standard"
+            placeholder="Input Total Supply"
+            value={totalSupplyData}
+            onChange={(e) => { setTotalSupplyData(e.target.value) }}
+          />
+          <InputLabel sx={{ marginTop: "20px" }}>TGE</InputLabel>
+          <Select
+            id="tge"
+            value={tgeData}
+            label="TGE"
+            fullWidth
+            onChange={(e) => { setTgeData(e.target.value) }}
+          >
+            {months.map((item) => (
+              <MenuItem value={item}>{item}</MenuItem>
+            ))}
+          </Select>
+          <TextField
+            margin="dense"
+            id="blockchain"
+            label="Blockchain"
+            type="text"
+            fullWidth
+            variant="standard"
+            disabled
+            value={blockChainType}
+          />
+          <DialogContentText mt={4}>
+            PLEASE ADD INVESTMENTS HERE.
+          </DialogContentText>
+          <TextField
+            margin="dense"
+            id="min"
+            label="Min BUSD/USDT(BEP-20) Only"
+            type="number"
+            fullWidth
+            variant="standard"
+            value={minData}
+            onChange={(e) => {setMinData(e.target.value)}}
+          />
+          <TextField
+            margin="dense"
+            id="max"
+            label="Max BUSD/USDT(BEP-20) Only"
+            type="number"
+            fullWidth
+            variant="standard"
+            value={maxData}
+            onChange={(e) => {setMaxData(e.target.value)}}
+          />
+          <TextField
+            margin="dense"
+            id="fee"
+            label="Fee %"
+            type="number"
+            fullWidth
+            variant="standard"
+            value={feeData}
+            onChange={(e) => {setFeeData(e.target.value)}}
           />
         </DialogContent>
         <DialogActions>
