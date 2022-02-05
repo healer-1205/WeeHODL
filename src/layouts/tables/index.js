@@ -67,17 +67,17 @@ function Tables() {
   const [demoVideoData, setDemoVideoData] = useState("");
   const [cinematicData, setCinematicData] = useState("");
   const [vrWorldData, setVrWorldData] = useState("");
-  const [distributionTypeData, setDistributionType] = useState("Private");
   const [distributionData, setDistributionData] = useState("");
-  const [priceData, setPriceData] = useState("");
+  const [priceData, setPriceData] = useState(0);
   const [publicSalePriceData, setPublicSalePriceData] = useState("");
   const [imcData, setImcData] = useState("");
   const [totalSupplyData, setTotalSupplyData] = useState("");
   const [tgeData, setTgeData] = useState("");
-  const blockChainType = "Binance Smart Chain";
   const [minData, setMinData] = useState(0);
   const [maxData, setMaxData] = useState(0);
   const [feeData, setFeeData] = useState(0);
+  const blockChainType = "Binance Smart Chain";
+  const distributionTypeData = "Private";
 
   useEffect(() => {
     if (Object.keys(currentProject).length > 0) {
@@ -99,13 +99,16 @@ function Tables() {
       setDemoVideoData(currentProject.demoVideo);
       setCinematicData(currentProject.cinematic);
       setVrWorldData(currentProject.vrWorld);
-      setDistributionType(currentProject.distributionType);
       setDistributionData(currentProject.distribution);
       setPriceData(currentProject.price);
       setPublicSalePriceData(currentProject.publicSalePrice);
       setImcData(currentProject.imc);
       setTotalSupplyData(currentProject.totalSupply);
-      setTgeData(currentProject.tge);
+      if (currentProject.tge === undefined) {
+        setTgeData("");
+      } else {
+        setTgeData(currentProject.tge);
+      }
       setMinData(currentProject.min);
       setMaxData(currentProject.max);
       setFeeData(currentProject.fee);
@@ -121,6 +124,31 @@ function Tables() {
     setProjectTitle("");
     setProjectDescription("");
     setAth("");
+    setPrologueData("");
+    setIntroData("");
+    setTelegramData("");
+    setDiscordData("");
+    setInstagramData("");
+    setTwitterData("");
+    setFacebookData("");
+    setYoutubeData("");
+    setRedditData("");
+    setWebsiteData("");
+    setWhitePaperData("");
+    setLightPaperData("");
+    setDemoVideoData("");
+    setCinematicData("");
+    setVrWorldData("");
+    setDistributionData("");
+    setPriceData(0);
+    setPublicSalePriceData(0);
+    setImcData(0);
+    setTotalSupplyData(0);
+    setTgeData("");
+    setMinData(0);
+    setMaxData(0);
+    setFeeData(0);
+    setCurrentProject(dispatch, {});
   }
 
   const getData = () => {
@@ -137,6 +165,7 @@ function Tables() {
   }
 
   const saveData = () => {
+    setLoading(dispatch, true);
     const projectData = {
       id: currentProject._id,
       title: projectTitle,
@@ -175,6 +204,7 @@ function Tables() {
         getData();
         setCurrentProject(dispatch, {})
         handleClose();
+        setLoading(dispatch, false);
       })
       .catch(err => {
         // eslint-disable-next-line
@@ -559,7 +589,7 @@ function Tables() {
             onChange={(e) => { setTgeData(e.target.value) }}
           >
             {months.map((item) => (
-              <MenuItem value={item}>{item}</MenuItem>
+              <MenuItem key={item} value={item}>{item}</MenuItem>
             ))}
           </Select>
           <TextField
@@ -583,7 +613,7 @@ function Tables() {
             fullWidth
             variant="standard"
             value={minData}
-            onChange={(e) => {setMinData(e.target.value)}}
+            onChange={(e) => { setMinData(e.target.value) }}
           />
           <TextField
             margin="dense"
@@ -593,7 +623,7 @@ function Tables() {
             fullWidth
             variant="standard"
             value={maxData}
-            onChange={(e) => {setMaxData(e.target.value)}}
+            onChange={(e) => { setMaxData(e.target.value) }}
           />
           <TextField
             margin="dense"
@@ -603,7 +633,7 @@ function Tables() {
             fullWidth
             variant="standard"
             value={feeData}
-            onChange={(e) => {setFeeData(e.target.value)}}
+            onChange={(e) => { setFeeData(e.target.value) }}
           />
         </DialogContent>
         <DialogActions>

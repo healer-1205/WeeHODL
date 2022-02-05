@@ -93,20 +93,20 @@ export default function data() {
         ),
       })) :
       projectData.map(item => ({
-        title: <Project title={item.title} />,
+        title: <Project title={item.title} key={item} />,
         description: (
-          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium" key={item}>
             {item.description}
           </MDTypography>
         ),
         ath: (
-          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium" key={item}>
             {item.ath}
           </MDTypography>
         ),
         action: (
           <MDTypography color="text">
-            <MDButton variant="text" color="success" onClick={() => { handleWithdrawModal(item) }}>
+            <MDButton variant="text" color="success" onClick={() => { handleWithdrawModal(item) }} key={item}>
               <Icon>paid</Icon>&nbsp;Withdraw
             </MDButton>
           </MDTypography>
