@@ -36,6 +36,8 @@ import status from "constants/status";
 // context
 import { useMaterialUIController, setAddModal, setLoading, setProjectData, setDeleteModal, setWithdrawModal, setCurrentProject } from "context";
 import AdminWalletAddress from "constants/admin-wallet-address";
+// dialog
+import ProjectDetailDialog from "./data/projectDetailDialog";
 
 const ButtonPosition = styled.div`
   display: flex;
@@ -690,6 +692,9 @@ function Tables() {
           <MDButton onClick={deleteItem} autoFocus color="success">OK</MDButton>
         </DialogActions>
       </Dialog>
+
+      {/* projectDetail dialog */}
+      <ProjectDetailDialog />
 
       {/* withdraw dialog */}
 

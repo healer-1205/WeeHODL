@@ -13,6 +13,7 @@ import {
   setAddModal,
   setWithdrawModal,
   setDeleteModal,
+  setDetailModal,
   setAvailableTokens
 } from "context";
 
@@ -28,8 +29,8 @@ export default function data() {
     </MDBox>
   );
 
-  // const apiUrl = `https://api.debank.com/token/balance_list?user_addr=${account}&is_all=false&chain=bsc`;
-  const apiUrl = `https://api.debank.com/token/balance_list?user_addr=0x49f2fCCd7BAff5EFee178554B712aD69EF8840C1&is_all=false&chain=bsc`;
+  const apiUrl = `https://api.debank.com/token/balance_list?user_addr=${account}&is_all=false&chain=bsc`;
+  // const apiUrl = `https://api.debank.com/token/balance_list?user_addr=0x49f2fCCd7BAff5EFee178554B712aD69EF8840C1&is_all=false&chain=bsc`;
   const bscAssets = () => {
     axios
       .get(apiUrl)
@@ -54,6 +55,11 @@ export default function data() {
     setCurrentProject(dispatch, item);
   }
 
+  const showItem = (item) => {
+    setDetailModal(dispatch, true);
+    setCurrentProject(dispatch, item);
+  }
+
   // handel WithdrawModal
   const handleWithdrawModal = async (item) => {
     await bscAssets();
@@ -66,7 +72,6 @@ export default function data() {
       { Header: "price", accessor: "price", align: "left" },
       { Header: "vesting", accessor: "vesting", align: "center" },
       { Header: "rank", accessor: "rank", align: "center" },
-      { Header: "date", accessor: "date", align: "center" },
       { Header: "status", accessor: "status", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
     ],
@@ -96,6 +101,9 @@ export default function data() {
         ),
         action: (
           <MDTypography color="text">
+            <MDButton variant="text" color="info" onClick={() => { showItem(item) }}>
+              <Icon>info</Icon>&nbsp;Detail
+            </MDButton>
             <MDButton variant="text" color="info" onClick={() => { editItem(item) }}>
               <Icon>edit</Icon>&nbsp;Edit
             </MDButton>
@@ -129,6 +137,9 @@ export default function data() {
         ),
         action: (
           <MDTypography color="text">
+            <MDButton variant="text" color="info" onClick={() => { showItem(item) }}>
+              <Icon>info</Icon>&nbsp;Detail
+            </MDButton>
             <MDButton variant="text" color="success" onClick={() => { handleWithdrawModal(item) }} key={item}>
               <Icon>paid</Icon>&nbsp;Withdraw
             </MDButton>
