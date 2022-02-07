@@ -62,23 +62,36 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "title", accessor: "title", width: "30%", align: "left" },
-      { Header: "project description", accessor: "description", align: "left" },
-      { Header: "ath", accessor: "ath", align: "center" },
+      { Header: "title", accessor: "title", width: "20%", align: "left" },
+      { Header: "price", accessor: "price", align: "left" },
+      { Header: "vesting", accessor: "vesting", align: "center" },
+      { Header: "rank", accessor: "rank", align: "center" },
+      { Header: "date", accessor: "date", align: "center" },
+      { Header: "status", accessor: "status", align: "center" },
       { Header: "action", accessor: "action", align: "center" },
     ],
 
     rows: isAdmin ?
       projectData.map(item => ({
         title: <Project title={item.title} />,
-        description: (
+        price: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
-            {item.description}
+            $ {item.price}
           </MDTypography>
         ),
-        ath: (
+        vesting: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
-            {item.ath}
+            {item.distributionType}
+          </MDTypography>
+        ),
+        rank: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            {item.rank}
+          </MDTypography>
+        ),
+        status: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            {item.status}
           </MDTypography>
         ),
         action: (
@@ -94,14 +107,24 @@ export default function data() {
       })) :
       projectData.map(item => ({
         title: <Project title={item.title} key={item} />,
-        description: (
+        price: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium" key={item}>
-            {item.description}
+            $ {item.price}
           </MDTypography>
         ),
-        ath: (
+        vesting: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium" key={item}>
-            {item.ath}
+            {item.distributionType}
+          </MDTypography>
+        ),
+        rank: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            {item.rank}
+          </MDTypography>
+        ),
+        status: (
+          <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium">
+            {item.status}
           </MDTypography>
         ),
         action: (

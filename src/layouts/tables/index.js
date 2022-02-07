@@ -32,6 +32,7 @@ import DataTable from "examples/Tables/DataTable";
 // Data
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import months from "constants/months";
+import status from "constants/status";
 // context
 import { useMaterialUIController, setAddModal, setLoading, setProjectData, setDeleteModal, setWithdrawModal, setCurrentProject } from "context";
 import AdminWalletAddress from "constants/admin-wallet-address";
@@ -52,6 +53,8 @@ function Tables() {
   const [projectTitle, setProjectTitle] = useState("");
   const [projectDescription, setProjectDescription] = useState("");
   const [athValue, setAth] = useState("");
+  const [statusData, setStatusData] = useState("waiting");
+  const [rankData, setRankData] = useState(1);
   const [prologueData, setPrologueData] = useState("");
   const [introData, setIntroData] = useState("");
   const [telegramData, setTelegramData] = useState("");
@@ -84,6 +87,8 @@ function Tables() {
       setProjectTitle(currentProject.title);
       setProjectDescription(currentProject.description);
       setAth(currentProject.ath);
+      setStatusData(currentProject.status);
+      setRankData(currentProject.rank);
       setPrologueData(currentProject.prologue);
       setIntroData(currentProject.intro);
       setTelegramData(currentProject.telegram);
@@ -124,6 +129,8 @@ function Tables() {
     setProjectTitle("");
     setProjectDescription("");
     setAth("");
+    setStatusData("waiting");
+    setRankData(0);
     setPrologueData("");
     setIntroData("");
     setTelegramData("");
@@ -171,6 +178,8 @@ function Tables() {
       title: projectTitle,
       description: projectDescription,
       ath: athValue,
+      status: statusData,
+      rank: rankData,
       prologue: prologueData,
       intro: introData,
       telegram: telegramData,
@@ -330,6 +339,29 @@ function Tables() {
             placeholder="ATH"
             value={athValue}
             onChange={(e) => { setAth(e.target.value) }}
+          />
+          <InputLabel sx={{ marginTop: "20px" }}>STATUS</InputLabel>
+          <Select
+            id="status"
+            value={statusData}
+            label="STATUS"
+            fullWidth
+            onChange={(e) => { setStatusData(e.target.value) }}
+          >
+            {status.map((item) => (
+              <MenuItem key={item} value={item}>{item}</MenuItem>
+            ))}
+          </Select>
+          <TextField
+            margin="dense"
+            id="rank"
+            label="RANK"
+            type="number"
+            fullWidth
+            variant="standard"
+            placeholder="Input Rank"
+            value={rankData}
+            onChange={(e) => { setRankData(e.target.value) }}
           />
           <TextField
             margin="dense"
