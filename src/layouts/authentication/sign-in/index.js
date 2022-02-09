@@ -73,7 +73,7 @@ const Basic = () => {
         const solAccountAddress = window.solflare.publicKey.toBase58();
         setAccount(dispatch, String(solAccountAddress));
         setAuthenticated(dispatch, true);
-        navigate("/wallet");
+        // navigate("/wallet");
         // const registerData = {
         //   address: String(solAccountAddress),
         //   walletType: "Solflare"

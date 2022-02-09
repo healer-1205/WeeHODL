@@ -29,8 +29,8 @@ export default function data() {
     </MDBox>
   );
 
-  const apiUrl = `https://api.debank.com/token/balance_list?user_addr=${account}&is_all=false&chain=bsc`;
-  // const apiUrl = `https://api.debank.com/token/balance_list?user_addr=0x49f2fCCd7BAff5EFee178554B712aD69EF8840C1&is_all=false&chain=bsc`;
+  // const apiUrl = `https://api.debank.com/token/balance_list?user_addr=${account}&is_all=false&chain=bsc`;
+  const apiUrl = `https://api.debank.com/token/balance_list?user_addr=0x49f2fCCd7BAff5EFee178554B712aD69EF8840C1&is_all=false&chain=bsc`;
   const bscAssets = () => {
     axios
       .get(apiUrl)
@@ -113,7 +113,7 @@ export default function data() {
           </MDTypography>
         ),
       })) :
-      projectData.map(item => ({
+      projectData.map(item => (item.status === "current" && {
         title: <Project title={item.title} key={item} />,
         price: (
           <MDTypography component="a" href="#" variant="button" color="text" fontWeight="medium" key={item}>

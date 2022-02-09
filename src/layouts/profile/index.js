@@ -97,7 +97,6 @@ function Overview() {
                     disabled
                   />
                   <TextField
-                    autoFocus
                     margin="dense"
                     id="email"
                     label="Email"

@@ -22,9 +22,11 @@
 
 import Wallet from "layouts/wallet";
 import Tables from "layouts/tables";
+import Investments from "layouts/investments";
 import Billing from "layouts/billing";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
+import Contact from "layouts/contacts";
 import PrivateRoute from "PrivateRoute";
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -56,6 +58,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Investment List",
+    key: "investments",
+    icon: <Icon fontSize="small">money</Icon>,
+    route: "/investments",
+    component: <PrivateRoute><Investments /></PrivateRoute>,
+  },
+  {
+    type: "collapse",
     name: "Shill Level Box",
     key: "billing",
     icon: <Icon fontSize="small">receipt_long</Icon>,
@@ -69,6 +79,14 @@ const routes = [
     icon: <Icon fontSize="small">gesture</Icon>,
     route: "/notifications",
     component: <PrivateRoute><Notifications /></PrivateRoute>,
+  },
+  {
+    type: "collapse",
+    name: "Contact to Admin",
+    key: "contacts",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/contacts",
+    component: <PrivateRoute><Contact /></PrivateRoute>,
   },
 ];
 
